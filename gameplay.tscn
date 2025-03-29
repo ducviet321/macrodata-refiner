@@ -1,6 +1,5 @@
-[gd_scene load_steps=25 format=3 uid="uid://bh8ggr8lwnvew"]
+[gd_scene load_steps=30 format=3 uid="uid://bh8ggr8lwnvew"]
 
-[ext_resource type="Texture2D" uid="uid://djj6hjmrkq365" path="res://Assests/background2.png" id="1_ej4tk"]
 [ext_resource type="Texture2D" uid="uid://cbobjlafk0ho0" path="res://Assests/background.png" id="1_n4psk"]
 [ext_resource type="Script" uid="uid://mgn0b7nq0tid" path="res://gameplay.gd" id="1_smepj"]
 [ext_resource type="Material" uid="uid://bsiikxb1y3ebw" path="res://Assests/matterial_crt.tres" id="1_xuee5"]
@@ -8,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://e028nnomuayj" path="res://Assests/logo.png" id="4_cbffv"]
 [ext_resource type="AudioStream" uid="uid://dpsn5brbcw1r2" path="res://Assests/beep_small.wav" id="6_0m7cd"]
 [ext_resource type="FontFile" uid="uid://d2vkaervcbbgh" path="res://Assests/FormaDJRText-ExtraBold-Testing.ttf" id="6_1qy1k"]
+[ext_resource type="Texture2D" uid="uid://d2s0yl675caem" path="res://Assests/spritesheet.png" id="6_3n40r"]
+[ext_resource type="Script" path="res://Assests/ui_scaler.gd" id="6_45aep"]
 [ext_resource type="AudioStream" uid="uid://cslgmil4c6t7i" path="res://Assests/beep_long.wav" id="7_1qy1k"]
 [ext_resource type="AudioStream" uid="uid://b7u47wl7w07nl" path="res://Assests/beep.wav" id="7_2ihbs"]
 [ext_resource type="AudioStream" uid="uid://2w47dm5qap1g" path="res://Assests/elevator.ogg" id="10_3n40r"]
@@ -44,6 +45,21 @@ LineEdit/colors/font_color = Color(0.521569, 0.941176, 1, 1)
 LineEdit/constants/caret_width = 30
 LineEdit/styles/focus = SubResource("StyleBoxEmpty_e1x85")
 LineEdit/styles/normal = SubResource("StyleBoxEmpty_cjfk0")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tyrfw"]
+atlas = ExtResource("6_3n40r")
+region = Rect2(17, 0, 9, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_45aep"]
+atlas = ExtResource("6_3n40r")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_45aep"]
+load_path = "res://.godot/imported/spritesheet.png-a1c390f16a2e861eaae846923967ec5f.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eod45"]
+atlas = SubResource("CompressedTexture2D_45aep")
+region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="Animation" id="Animation_smepj"]
 resource_name = "fade_in"
@@ -157,7 +173,7 @@ tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(2, 12)]
+"values": [Vector2(0, 12)]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
@@ -477,6 +493,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
 
 [node name="Background Container" type="Control" parent="UI/Root"]
 layout_mode = 1
@@ -494,17 +511,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_n4psk")
-expand_mode = 1
-
-[node name="Background2" type="TextureRect" parent="UI/Root/Background Container"]
-modulate = Color(1, 1, 1, 0.619608)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("1_ej4tk")
 expand_mode = 1
 
 [node name="Logo Container" type="Control" parent="UI/Root"]
@@ -583,6 +589,7 @@ anchor_top = 0.454688
 anchor_right = 0.656771
 anchor_bottom = 0.464063
 offset_left = 593.0
+offset_right = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_2ihbs")
@@ -641,6 +648,676 @@ visible_characters = 0
 visible_ratio = 0.0
 metadata/_edit_use_anchors_ = true
 
+[node name="Gameplay" type="Control" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UI" type="Control" parent="UI/Gameplay"]
+modulate = Color(0.521569, 0.941176, 1, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Top" type="ColorRect" parent="UI/Gameplay/UI"]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -1048.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="Background" type="TextureRect" parent="UI/Gameplay/UI/Top"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 1278.0
+grow_horizontal = 2
+texture = ExtResource("1_n4psk")
+expand_mode = 1
+
+[node name="Bar" type="TextureRect" parent="UI/Gameplay/UI/Top"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -13.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = SubResource("AtlasTexture_tyrfw")
+expand_mode = 1
+
+[node name="Logo Container" type="Control" parent="UI/Gameplay/UI/Top"]
+layout_mode = 1
+anchor_left = 0.768
+anchor_top = 0.496
+anchor_right = 0.944792
+anchor_bottom = 0.496
+offset_left = -0.560059
+offset_top = -91.56
+offset_bottom = 91.44
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Logo Icon" type="TextureRect" parent="UI/Gameplay/UI/Top/Logo Container"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.614706
+anchor_top = 0.415301
+anchor_right = 0.747059
+anchor_bottom = 0.595628
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_0m7cd")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Logo Text" type="TextureRect" parent="UI/Gameplay/UI/Top/Logo Container"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.409836
+anchor_right = 0.920589
+anchor_bottom = 0.595628
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_1qy1k")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Logo" type="TextureRect" parent="UI/Gameplay/UI/Top/Logo Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_fbudy")
+expand_mode = 1
+
+[node name="Line" type="TextureRect" parent="UI/Gameplay/UI/Top/Logo Container"]
+modulate = Color(0.696, 0.961, 1, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.342417
+anchor_top = 0.276
+anchor_right = 0.657292
+anchor_bottom = 0.285156
+offset_left = 604.56
+offset_top = -0.280029
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_2ihbs")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Line2" type="TextureRect" parent="UI/Gameplay/UI/Top/Logo Container"]
+modulate = Color(0.696, 0.961, 1, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.346875
+anchor_top = 0.454688
+anchor_right = 0.656771
+anchor_bottom = 0.464063
+offset_left = 593.0
+offset_right = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_2ihbs")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="LabelName" type="Label" parent="UI/Gameplay/UI/Top"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.113021
+anchor_top = 0.5
+anchor_right = 0.113021
+anchor_bottom = 0.5
+offset_top = -24.5
+offset_right = 265.0
+offset_bottom = -5.5
+scale = Vector2(3, 3)
+theme = ExtResource("2_ej4tk")
+theme_override_font_sizes/font_size = 15
+text = "VITSOONYOUNG"
+metadata/_edit_use_anchors_ = true
+
+[node name="LabelCompletePercentage" type="Label" parent="UI/Gameplay/UI/Top"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.753646
+anchor_top = 0.5
+anchor_right = 0.753646
+anchor_bottom = 0.5
+offset_left = -795.0
+offset_top = -32.5
+offset_right = -530.0
+offset_bottom = -9.5
+scale = Vector2(3, 3)
+theme = ExtResource("2_ej4tk")
+theme_override_colors/font_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0.875426, 0.984108, 1, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 18
+text = "0% Complete"
+horizontal_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Container" type="Container" parent="UI/Gameplay/UI/Top"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.096
+anchor_top = 0.5
+anchor_right = 0.784
+anchor_bottom = 0.5
+offset_left = 0.679993
+offset_top = -50.5
+offset_right = 0.719971
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_45aep")
+content_scale = 3.0
+metadata/_edit_use_anchors_ = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/Gameplay/UI/Top/Container"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_45aep")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Bottom" type="ColorRect" parent="UI/Gameplay/UI"]
+clip_children = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.819969
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 0.439941
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Background" type="TextureRect" parent="UI/Gameplay/UI/Bottom"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.998
+anchor_right = 1.0
+anchor_bottom = 0.998
+offset_top = -1277.44
+offset_bottom = 0.559937
+grow_horizontal = 2
+texture = ExtResource("1_n4psk")
+expand_mode = 1
+
+[node name="Bar" type="TextureRect" parent="UI/Gameplay/UI/Bottom"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 13.0
+grow_horizontal = 2
+texture = SubResource("AtlasTexture_tyrfw")
+expand_mode = 1
+
+[node name="Bar2" type="TextureRect" parent="UI/Gameplay/UI/Bottom"]
+modulate = Color(1, 1, 1, 0.705882)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.617
+anchor_right = 1.0
+anchor_bottom = 0.617
+offset_top = 14.09
+offset_bottom = 20.09
+grow_horizontal = 2
+texture = SubResource("AtlasTexture_tyrfw")
+expand_mode = 1
+
+[node name="Container" type="HBoxContainer" parent="UI/Gameplay/UI/Bottom"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.630304
+anchor_right = 1.0
+anchor_bottom = 0.630304
+offset_top = -115.97
+offset_bottom = 0.0299835
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Control" type="VBoxContainer" parent="UI/Gameplay/UI/Bottom/Container"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Container" type="Container" parent="UI/Gameplay/UI/Bottom/Container/Control"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("6_45aep")
+content_scale = 3.0
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Gameplay/UI/Bottom/Container/Control/Container"]
+layout_mode = 2
+theme_override_constants/margin_top = 1
+
+[node name="LabelName" type="Label" parent="UI/Gameplay/UI/Bottom/Container/Control/Container/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme = ExtResource("2_ej4tk")
+theme_override_font_sizes/font_size = 15
+text = "01"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/Gameplay/UI/Bottom/Container/Control/Container"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_eod45")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Container2" type="Container" parent="UI/Gameplay/UI/Bottom/Container/Control"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("6_45aep")
+content_scale = 3.0
+metadata/_edit_use_anchors_ = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/Gameplay/UI/Bottom/Container/Control/Container2"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_eod45")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Control" type="Control" parent="UI/Gameplay/UI/Bottom/Container/Control/Container2"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI/Gameplay/UI/Bottom/Container/Control/Container2/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -44.6667
+offset_bottom = -12.6667
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Gameplay/UI/Bottom/Container/Control/Container2"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 1
+
+[node name="LabelPercentage" type="Label" parent="UI/Gameplay/UI/Bottom/Container/Control/Container2/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme = ExtResource("2_ej4tk")
+theme_override_colors/font_color = Color(0, 0.192157, 0.333333, 1)
+theme_override_colors/font_outline_color = Color(0.517647, 0.933333, 0.992157, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 15
+text = "100%"
+vertical_alignment = 1
+
+[node name="Control2" type="VBoxContainer" parent="UI/Gameplay/UI/Bottom/Container"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Container" type="Container" parent="UI/Gameplay/UI/Bottom/Container/Control2"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("6_45aep")
+content_scale = 3.0
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Gameplay/UI/Bottom/Container/Control2/Container"]
+layout_mode = 2
+theme_override_constants/margin_top = 1
+
+[node name="LabelName" type="Label" parent="UI/Gameplay/UI/Bottom/Container/Control2/Container/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme = ExtResource("2_ej4tk")
+theme_override_font_sizes/font_size = 15
+text = "01"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/Gameplay/UI/Bottom/Container/Control2/Container"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_eod45")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Container2" type="Container" parent="UI/Gameplay/UI/Bottom/Container/Control2"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("6_45aep")
+content_scale = 3.0
+metadata/_edit_use_anchors_ = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/Gameplay/UI/Bottom/Container/Control2/Container2"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_eod45")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Control" type="Control" parent="UI/Gameplay/UI/Bottom/Container/Control2/Container2"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI/Gameplay/UI/Bottom/Container/Control2/Container2/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -44.6667
+offset_bottom = -12.6667
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Gameplay/UI/Bottom/Container/Control2/Container2"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 1
+
+[node name="LabelPercentage" type="Label" parent="UI/Gameplay/UI/Bottom/Container/Control2/Container2/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme = ExtResource("2_ej4tk")
+theme_override_colors/font_color = Color(0, 0.192157, 0.333333, 1)
+theme_override_colors/font_outline_color = Color(0.517647, 0.933333, 0.992157, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 15
+text = "100%"
+vertical_alignment = 1
+
+[node name="Control3" type="VBoxContainer" parent="UI/Gameplay/UI/Bottom/Container"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Container" type="Container" parent="UI/Gameplay/UI/Bottom/Container/Control3"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("6_45aep")
+content_scale = 3.0
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Gameplay/UI/Bottom/Container/Control3/Container"]
+layout_mode = 2
+theme_override_constants/margin_top = 1
+
+[node name="LabelName" type="Label" parent="UI/Gameplay/UI/Bottom/Container/Control3/Container/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme = ExtResource("2_ej4tk")
+theme_override_font_sizes/font_size = 15
+text = "01"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/Gameplay/UI/Bottom/Container/Control3/Container"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_eod45")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Container2" type="Container" parent="UI/Gameplay/UI/Bottom/Container/Control3"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("6_45aep")
+content_scale = 3.0
+metadata/_edit_use_anchors_ = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/Gameplay/UI/Bottom/Container/Control3/Container2"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_eod45")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Control" type="Control" parent="UI/Gameplay/UI/Bottom/Container/Control3/Container2"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI/Gameplay/UI/Bottom/Container/Control3/Container2/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -44.6667
+offset_bottom = -12.6667
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Gameplay/UI/Bottom/Container/Control3/Container2"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 1
+
+[node name="LabelPercentage" type="Label" parent="UI/Gameplay/UI/Bottom/Container/Control3/Container2/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme = ExtResource("2_ej4tk")
+theme_override_colors/font_color = Color(0, 0.192157, 0.333333, 1)
+theme_override_colors/font_outline_color = Color(0.517647, 0.933333, 0.992157, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 15
+text = "100%"
+vertical_alignment = 1
+
+[node name="Control4" type="VBoxContainer" parent="UI/Gameplay/UI/Bottom/Container"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Container" type="Container" parent="UI/Gameplay/UI/Bottom/Container/Control4"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("6_45aep")
+content_scale = 3.0
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Gameplay/UI/Bottom/Container/Control4/Container"]
+layout_mode = 2
+theme_override_constants/margin_top = 1
+
+[node name="LabelName" type="Label" parent="UI/Gameplay/UI/Bottom/Container/Control4/Container/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme = ExtResource("2_ej4tk")
+theme_override_font_sizes/font_size = 15
+text = "01"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/Gameplay/UI/Bottom/Container/Control4/Container"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_eod45")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Container2" type="Container" parent="UI/Gameplay/UI/Bottom/Container/Control4"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("6_45aep")
+content_scale = 3.0
+metadata/_edit_use_anchors_ = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/Gameplay/UI/Bottom/Container/Control4/Container2"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_eod45")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Control" type="Control" parent="UI/Gameplay/UI/Bottom/Container/Control4/Container2"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI/Gameplay/UI/Bottom/Container/Control4/Container2/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -44.6667
+offset_bottom = -12.6667
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Gameplay/UI/Bottom/Container/Control4/Container2"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 1
+
+[node name="LabelPercentage" type="Label" parent="UI/Gameplay/UI/Bottom/Container/Control4/Container2/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme = ExtResource("2_ej4tk")
+theme_override_colors/font_color = Color(0, 0.192157, 0.333333, 1)
+theme_override_colors/font_outline_color = Color(0.517647, 0.933333, 0.992157, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 15
+text = "100%"
+vertical_alignment = 1
+
+[node name="Control5" type="VBoxContainer" parent="UI/Gameplay/UI/Bottom/Container"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Container" type="Container" parent="UI/Gameplay/UI/Bottom/Container/Control5"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("6_45aep")
+content_scale = 3.0
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Gameplay/UI/Bottom/Container/Control5/Container"]
+layout_mode = 2
+theme_override_constants/margin_top = 1
+
+[node name="LabelName" type="Label" parent="UI/Gameplay/UI/Bottom/Container/Control5/Container/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme = ExtResource("2_ej4tk")
+theme_override_font_sizes/font_size = 15
+text = "01"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/Gameplay/UI/Bottom/Container/Control5/Container"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_eod45")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Container2" type="Container" parent="UI/Gameplay/UI/Bottom/Container/Control5"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("6_45aep")
+content_scale = 3.0
+metadata/_edit_use_anchors_ = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/Gameplay/UI/Bottom/Container/Control5/Container2"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_eod45")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Control" type="Control" parent="UI/Gameplay/UI/Bottom/Container/Control5/Container2"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI/Gameplay/UI/Bottom/Container/Control5/Container2/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -44.6667
+offset_bottom = -12.6667
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Gameplay/UI/Bottom/Container/Control5/Container2"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 1
+
+[node name="LabelPercentage" type="Label" parent="UI/Gameplay/UI/Bottom/Container/Control5/Container2/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme = ExtResource("2_ej4tk")
+theme_override_colors/font_color = Color(0, 0.192157, 0.333333, 1)
+theme_override_colors/font_outline_color = Color(0.517647, 0.933333, 0.992157, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 15
+text = "100%"
+vertical_alignment = 1
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../UI/Root")
 libraries = {
@@ -659,12 +1336,9 @@ material = ExtResource("1_xuee5")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 19.0
-offset_top = -1.0
-offset_right = 19.0
-offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+metadata/_edit_lock_ = true
 
 [connection signal="text_submitted" from="UI/Root/Label 85f0ff/InputName" to="." method="_on_input_name_text_submitted"]

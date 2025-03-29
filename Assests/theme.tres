@@ -1,0 +1,17 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://dplwn4m0n2xu3"]
+
+[ext_resource type="FontFile" uid="uid://d2vkaervcbbgh" path="res://Assests/FormaDJRText-ExtraBold-Testing.ttf" id="1_e1x85"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e1x85"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cjfk0"]
+
+[resource]
+default_font = ExtResource("1_e1x85")
+default_font_size = 40
+Label/colors/font_color = Color(0.521569, 0.941176, 1, 1)
+LineEdit/colors/caret_color = Color(0.312183, 0.80518, 0.898518, 0.772549)
+LineEdit/colors/font_color = Color(0.521569, 0.941176, 1, 1)
+LineEdit/constants/caret_width = 30
+LineEdit/styles/focus = SubResource("StyleBoxEmpty_e1x85")
+LineEdit/styles/normal = SubResource("StyleBoxEmpty_cjfk0")

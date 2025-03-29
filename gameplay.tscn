@@ -1,0 +1,670 @@
+[gd_scene load_steps=25 format=3 uid="uid://bh8ggr8lwnvew"]
+
+[ext_resource type="Texture2D" uid="uid://djj6hjmrkq365" path="res://Assests/background2.png" id="1_ej4tk"]
+[ext_resource type="Texture2D" uid="uid://cbobjlafk0ho0" path="res://Assests/background.png" id="1_n4psk"]
+[ext_resource type="Script" uid="uid://mgn0b7nq0tid" path="res://gameplay.gd" id="1_smepj"]
+[ext_resource type="Material" uid="uid://bsiikxb1y3ebw" path="res://Assests/matterial_crt.tres" id="1_xuee5"]
+[ext_resource type="Theme" uid="uid://dplwn4m0n2xu3" path="res://Assests/theme.tres" id="2_ej4tk"]
+[ext_resource type="Texture2D" uid="uid://e028nnomuayj" path="res://Assests/logo.png" id="4_cbffv"]
+[ext_resource type="AudioStream" uid="uid://dpsn5brbcw1r2" path="res://Assests/beep_small.wav" id="6_0m7cd"]
+[ext_resource type="FontFile" uid="uid://d2vkaervcbbgh" path="res://Assests/FormaDJRText-ExtraBold-Testing.ttf" id="6_1qy1k"]
+[ext_resource type="AudioStream" uid="uid://cslgmil4c6t7i" path="res://Assests/beep_long.wav" id="7_1qy1k"]
+[ext_resource type="AudioStream" uid="uid://b7u47wl7w07nl" path="res://Assests/beep.wav" id="7_2ihbs"]
+[ext_resource type="AudioStream" uid="uid://2w47dm5qap1g" path="res://Assests/elevator.ogg" id="10_3n40r"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cbffv"]
+load_path = "res://.godot/imported/logo.png-c3004843012acb25dfeabd09aefc836c.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0m7cd"]
+atlas = SubResource("CompressedTexture2D_cbffv")
+region = Rect2(70.0603, 33.3666, 81.9397, 68.6334)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1qy1k"]
+atlas = ExtResource("4_cbffv")
+region = Rect2(343, 34, 435, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fbudy"]
+atlas = ExtResource("4_cbffv")
+region = Rect2(125, 111, 604, 331)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ihbs"]
+atlas = ExtResource("4_cbffv")
+region = Rect2(166, 35, 163, 10)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e1x85"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cjfk0"]
+
+[sub_resource type="Theme" id="Theme_3n40r"]
+default_font = ExtResource("6_1qy1k")
+default_font_size = 40
+Label/colors/font_color = Color(0.521569, 0.941176, 1, 1)
+LineEdit/colors/caret_color = Color(0.312183, 0.80518, 0.898518, 0.772549)
+LineEdit/colors/font_color = Color(0.521569, 0.941176, 1, 1)
+LineEdit/constants/caret_width = 30
+LineEdit/styles/focus = SubResource("StyleBoxEmpty_e1x85")
+LineEdit/styles/normal = SubResource("StyleBoxEmpty_cjfk0")
+
+[sub_resource type="Animation" id="Animation_smepj"]
+resource_name = "fade_in"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(0.517632, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_cbffv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background Container:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label Startup:visible_ratio")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Label Startup:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Logo Container/Logo:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.696, 0.961, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Logo Container/Line:size")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 12)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Logo Container/Line:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1262, 353)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Logo Container/Line2:size")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 12)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Logo Container/Line2:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1259, 582)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Logo Container/Logo Text:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.696, 0.961, 1, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Logo Container/Logo Icon:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.696, 0.961, 1, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Logo Container/Line2:modulate")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.696, 0.961, 1, 1)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Logo Container/Line:modulate")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.696, 0.961, 1, 1)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Label 85f0ff:modulate")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fbudy"]
+resource_name = "hide"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0m7cd"]
+resource_name = "intro"
+length = 20.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background Container:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("6_0m7cd")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("6_0m7cd")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("7_1qy1k")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("7_2ihbs")
+}],
+"times": PackedFloat32Array(1.3, 2.1, 3.1, 4)
+}
+tracks/1/use_blend = true
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label Startup:visible_ratio")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.2, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Label Startup:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.2, 4.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Logo Container/Logo:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(5, 5.7, 9.69703, 10.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.696, 0.961, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0.696, 0.961, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Logo Container/Line:size")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(5.4, 6.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 12), Vector2(604, 12)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Logo Container/Line:position")
+tracks/6/interp = 2
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(5.4, 6.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1262, 353), Vector2(658, 353)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Logo Container/Line2:size")
+tracks/7/interp = 2
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(6, 6.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 12), Vector2(595, 12)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Logo Container/Line2:position")
+tracks/8/interp = 2
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(6, 6.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1259, 582), Vector2(666, 582)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Logo Container/Logo Text:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(6.9, 7.9, 9.7, 10.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.696, 0.961, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0.696, 0.961, 1, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Logo Container/Logo Icon:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(6.9, 7.9, 10.2, 11.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.696, 0.961, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0.696, 0.961, 1, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Logo Container/Line2:modulate")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(9.7, 10.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.696, 0.961, 1, 0)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Logo Container/Line:modulate")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(9.7, 10.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.696, 0.961, 1, 0)]
+}
+tracks/13/type = "audio"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("../../AudioStreamPlayer2")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("10_3n40r")
+}],
+"times": PackedFloat32Array(2.2)
+}
+tracks/13/use_blend = true
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Label 85f0ff:modulate")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(11.7, 12.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cbffv"]
+_data = {
+&"RESET": SubResource("Animation_cbffv"),
+&"fade_in": SubResource("Animation_smepj"),
+&"hide": SubResource("Animation_fbudy"),
+&"intro": SubResource("Animation_0m7cd")
+}
+
+[node name="Gameplay" type="CanvasLayer"]
+script = ExtResource("1_smepj")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Root" type="Control" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background Container" type="Control" parent="UI/Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="UI/Root/Background Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_n4psk")
+expand_mode = 1
+
+[node name="Background2" type="TextureRect" parent="UI/Root/Background Container"]
+modulate = Color(1, 1, 1, 0.619608)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ej4tk")
+expand_mode = 1
+
+[node name="Logo Container" type="Control" parent="UI/Root"]
+modulate = Color(0.694118, 0.960784, 1, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Logo Icon" type="TextureRect" parent="UI/Root/Logo Container"]
+modulate = Color(0.696, 0.961, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.535417
+anchor_top = 0.334375
+anchor_right = 0.586979
+anchor_bottom = 0.4
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_0m7cd")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Logo Text" type="TextureRect" parent="UI/Root/Logo Container"]
+modulate = Color(0.696, 0.961, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.354167
+anchor_top = 0.334375
+anchor_right = 0.646875
+anchor_bottom = 0.4
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_1qy1k")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Logo" type="TextureRect" parent="UI/Root/Logo Container"]
+modulate = Color(0.696, 0.961, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.297917
+anchor_top = 0.210938
+anchor_right = 0.702604
+anchor_bottom = 0.51875
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_fbudy")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Line" type="TextureRect" parent="UI/Root/Logo Container"]
+modulate = Color(0.696, 0.961, 1, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.342417
+anchor_top = 0.276
+anchor_right = 0.657292
+anchor_bottom = 0.285156
+offset_left = 604.56
+offset_top = -0.280029
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_2ihbs")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Line2" type="TextureRect" parent="UI/Root/Logo Container"]
+modulate = Color(0.696, 0.961, 1, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.346875
+anchor_top = 0.454688
+anchor_right = 0.656771
+anchor_bottom = 0.464063
+offset_left = 593.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_2ihbs")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label 85f0ff" type="Label" parent="UI/Root"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.158854
+anchor_top = 0.211719
+anchor_right = 0.158854
+anchor_bottom = 0.211719
+offset_right = 30.0
+offset_bottom = 49.0
+theme = ExtResource("2_ej4tk")
+text = ">"
+metadata/_edit_use_anchors_ = true
+
+[node name="InputName" type="LineEdit" parent="UI/Root/Label 85f0ff"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 30.0
+offset_top = -4.0
+offset_right = 384.0
+offset_bottom = 52.0
+theme = ExtResource("2_ej4tk")
+text = "VITSOONYOUNG"
+caret_blink = true
+
+[node name="Label Startup" type="Label" parent="UI/Root"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.158854
+anchor_top = 0.211719
+anchor_right = 0.844792
+anchor_bottom = 0.649219
+offset_right = 30.0
+offset_bottom = 49.0
+theme = SubResource("Theme_3n40r")
+theme_override_font_sizes/font_size = 30
+text = "LUMON OS
+parseElements: keyboard: 0 digitizer: 12 pointer: 0 0 scroll: 0 led: 0
+GPU initialized: Control ID 16
+startupTask
+Video has output streams: 1
+Reuse output buffer index:2 dev:Code Output offset:184000 size:20800
+Audio has output streams: 1
+DisableInput = 0
+portType = 3
+skipCached = 0
+PortType: 3, Length: 128
+Registered"
+visible_characters = 0
+visible_ratio = 0.0
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../UI/Root")
+libraries = {
+&"": SubResource("AnimationLibrary_cbffv")
+}
+autoplay = "intro"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+
+[node name="Effect" type="CanvasLayer" parent="."]
+
+[node name="CRT Effect" type="ColorRect" parent="Effect"]
+material = ExtResource("1_xuee5")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 19.0
+offset_top = -1.0
+offset_right = 19.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[connection signal="text_submitted" from="UI/Root/Label 85f0ff/InputName" to="." method="_on_input_name_text_submitted"]

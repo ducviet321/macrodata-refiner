@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bh8ggr8lwnvew"]
+[gd_scene load_steps=28 format=3 uid="uid://bh8ggr8lwnvew"]
 
 [ext_resource type="Texture2D" uid="uid://cbobjlafk0ho0" path="res://Assests/background.png" id="1_n4psk"]
 [ext_resource type="Script" uid="uid://mgn0b7nq0tid" path="res://gameplay.gd" id="1_smepj"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://Assests/ui_scaler.gd" id="6_45aep"]
 [ext_resource type="AudioStream" uid="uid://cslgmil4c6t7i" path="res://Assests/beep_long.wav" id="7_1qy1k"]
 [ext_resource type="AudioStream" uid="uid://b7u47wl7w07nl" path="res://Assests/beep.wav" id="7_2ihbs"]
+[ext_resource type="PackedScene" uid="uid://bihfbbiwyykfh" path="res://box.tscn" id="8_tyrfw"]
 [ext_resource type="AudioStream" uid="uid://2w47dm5qap1g" path="res://Assests/elevator.ogg" id="10_3n40r"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cbffv"]
@@ -53,29 +54,6 @@ region = Rect2(17, 0, 9, 4)
 [sub_resource type="AtlasTexture" id="AtlasTexture_45aep"]
 atlas = ExtResource("6_3n40r")
 region = Rect2(64, 0, 16, 16)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_45aep"]
-load_path = "res://.godot/imported/spritesheet.png-a1c390f16a2e861eaae846923967ec5f.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_eod45"]
-atlas = SubResource("CompressedTexture2D_45aep")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="Animation" id="Animation_smepj"]
-resource_name = "fade_in"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(0.517632, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_cbffv"]
 length = 0.001
@@ -266,7 +244,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_0m7cd"]
 resource_name = "intro"
-length = 20.0
+length = 12.0
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -461,7 +439,7 @@ tracks/14/path = NodePath("Label 85f0ff:modulate")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
-"times": PackedFloat32Array(11.7, 12.1),
+"times": PackedFloat32Array(11.6, 12),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -470,7 +448,6 @@ tracks/14/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cbffv"]
 _data = {
 &"RESET": SubResource("Animation_cbffv"),
-&"fade_in": SubResource("Animation_smepj"),
 &"hide": SubResource("Animation_fbudy"),
 &"intro": SubResource("Animation_0m7cd")
 }
@@ -843,10 +820,8 @@ patch_margin_right = 2
 patch_margin_bottom = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Bottom" type="ColorRect" parent="UI/Gameplay/UI"]
-clip_children = 1
+[node name="Bottom" type="Control" parent="UI/Gameplay/UI"]
 layout_mode = 1
-anchors_preset = -1
 anchor_top = 0.819969
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -855,15 +830,28 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Background" type="TextureRect" parent="UI/Gameplay/UI/Bottom"]
+[node name="Background Clipper" type="ColorRect" parent="UI/Gameplay/UI/Bottom"]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Background" type="TextureRect" parent="UI/Gameplay/UI/Bottom/Background Clipper"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.998
 anchor_right = 1.0
 anchor_bottom = 0.998
-offset_top = -1277.44
-offset_bottom = 0.559937
+offset_left = 5.0
+offset_top = -1277.54
+offset_right = 5.0
+offset_bottom = 0.459991
 grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("1_n4psk")
 expand_mode = 1
 
@@ -903,419 +891,74 @@ theme_override_constants/separation = 50
 alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Control" type="VBoxContainer" parent="UI/Gameplay/UI/Bottom/Container"]
-custom_minimum_size = Vector2(200, 0)
+[node name="Box" parent="UI/Gameplay/UI/Bottom/Container" instance=ExtResource("8_tyrfw")]
 layout_mode = 2
 
-[node name="Container" type="Container" parent="UI/Gameplay/UI/Bottom/Container/Control"]
+[node name="Box2" parent="UI/Gameplay/UI/Bottom/Container" instance=ExtResource("8_tyrfw")]
 layout_mode = 2
-size_flags_vertical = 3
-script = ExtResource("6_45aep")
-content_scale = 3.0
-metadata/_edit_use_anchors_ = true
+box_index = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/Gameplay/UI/Bottom/Container/Control/Container"]
+[node name="Box3" parent="UI/Gameplay/UI/Bottom/Container" instance=ExtResource("8_tyrfw")]
 layout_mode = 2
-theme_override_constants/margin_top = 1
+box_index = 2
 
-[node name="LabelName" type="Label" parent="UI/Gameplay/UI/Bottom/Container/Control/Container/MarginContainer"]
+[node name="Box4" parent="UI/Gameplay/UI/Bottom/Container" instance=ExtResource("8_tyrfw")]
 layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
+box_index = 3
+
+[node name="Box5" parent="UI/Gameplay/UI/Bottom/Container" instance=ExtResource("8_tyrfw")]
+layout_mode = 2
+box_index = 4
+
+[node name="Label" type="Label" parent="UI/Gameplay/UI/Bottom"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 811.0
+offset_top = -66.0
+offset_right = -811.0
+grow_horizontal = 2
+grow_vertical = 0
 theme = ExtResource("2_ej4tk")
-theme_override_font_sizes/font_size = 15
-text = "01"
+theme_override_font_sizes/font_size = 30
+text = "0xV1T500   :   0xNY0UN6"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="NinePatchRect" type="NinePatchRect" parent="UI/Gameplay/UI/Bottom/Container/Control/Container"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_eod45")
-region_rect = Rect2(0, 0, 16, 16)
-patch_margin_left = 2
-patch_margin_top = 2
-patch_margin_right = 2
-patch_margin_bottom = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="Container2" type="Container" parent="UI/Gameplay/UI/Bottom/Container/Control"]
-layout_mode = 2
-size_flags_vertical = 3
-script = ExtResource("6_45aep")
-content_scale = 3.0
-metadata/_edit_use_anchors_ = true
-
-[node name="NinePatchRect" type="NinePatchRect" parent="UI/Gameplay/UI/Bottom/Container/Control/Container2"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_eod45")
-region_rect = Rect2(0, 0, 16, 16)
-patch_margin_left = 2
-patch_margin_top = 2
-patch_margin_right = 2
-patch_margin_bottom = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="Control" type="Control" parent="UI/Gameplay/UI/Bottom/Container/Control/Container2"]
-layout_mode = 2
-
-[node name="ColorRect" type="ColorRect" parent="UI/Gameplay/UI/Bottom/Container/Control/Container2/Control"]
+[node name="Label2" type="Label" parent="UI/Gameplay/UI/Bottom"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -44.6667
-offset_bottom = -12.6667
+offset_left = 57.0604
+offset_top = -66.0
+offset_right = -1564.94
 grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(3, 3)
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/Gameplay/UI/Bottom/Container/Control/Container2"]
-layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 1
-
-[node name="LabelPercentage" type="Label" parent="UI/Gameplay/UI/Bottom/Container/Control/Container2/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 6
+grow_vertical = 0
 theme = ExtResource("2_ej4tk")
-theme_override_colors/font_color = Color(0, 0.192157, 0.333333, 1)
-theme_override_colors/font_outline_color = Color(0.517647, 0.933333, 0.992157, 1)
-theme_override_constants/outline_size = 4
-theme_override_font_sizes/font_size = 15
-text = "100%"
+theme_override_font_sizes/font_size = 30
+text = "Timeleft 00:00"
 vertical_alignment = 1
 
-[node name="Control2" type="VBoxContainer" parent="UI/Gameplay/UI/Bottom/Container"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-
-[node name="Container" type="Container" parent="UI/Gameplay/UI/Bottom/Container/Control2"]
-layout_mode = 2
-size_flags_vertical = 3
-script = ExtResource("6_45aep")
-content_scale = 3.0
-metadata/_edit_use_anchors_ = true
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/Gameplay/UI/Bottom/Container/Control2/Container"]
-layout_mode = 2
-theme_override_constants/margin_top = 1
-
-[node name="LabelName" type="Label" parent="UI/Gameplay/UI/Bottom/Container/Control2/Container/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
-theme = ExtResource("2_ej4tk")
-theme_override_font_sizes/font_size = 15
-text = "01"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="NinePatchRect" type="NinePatchRect" parent="UI/Gameplay/UI/Bottom/Container/Control2/Container"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_eod45")
-region_rect = Rect2(0, 0, 16, 16)
-patch_margin_left = 2
-patch_margin_top = 2
-patch_margin_right = 2
-patch_margin_bottom = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="Container2" type="Container" parent="UI/Gameplay/UI/Bottom/Container/Control2"]
-layout_mode = 2
-size_flags_vertical = 3
-script = ExtResource("6_45aep")
-content_scale = 3.0
-metadata/_edit_use_anchors_ = true
-
-[node name="NinePatchRect" type="NinePatchRect" parent="UI/Gameplay/UI/Bottom/Container/Control2/Container2"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_eod45")
-region_rect = Rect2(0, 0, 16, 16)
-patch_margin_left = 2
-patch_margin_top = 2
-patch_margin_right = 2
-patch_margin_bottom = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="Control" type="Control" parent="UI/Gameplay/UI/Bottom/Container/Control2/Container2"]
-layout_mode = 2
-
-[node name="ColorRect" type="ColorRect" parent="UI/Gameplay/UI/Bottom/Container/Control2/Container2/Control"]
+[node name="LabelShortcut" type="Label" parent="UI/Gameplay/UI/Bottom"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -44.6667
-offset_bottom = -12.6667
+offset_left = 1455.05
+offset_top = -66.0
+offset_right = -52.9504
 grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(3, 3)
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/Gameplay/UI/Bottom/Container/Control2/Container2"]
-layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 1
-
-[node name="LabelPercentage" type="Label" parent="UI/Gameplay/UI/Bottom/Container/Control2/Container2/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 6
+grow_vertical = 0
+pivot_offset = Vector2(362.657, 33.1563)
 theme = ExtResource("2_ej4tk")
-theme_override_colors/font_color = Color(0, 0.192157, 0.333333, 1)
-theme_override_colors/font_outline_color = Color(0.517647, 0.933333, 0.992157, 1)
-theme_override_constants/outline_size = 4
-theme_override_font_sizes/font_size = 15
-text = "100%"
-vertical_alignment = 1
-
-[node name="Control3" type="VBoxContainer" parent="UI/Gameplay/UI/Bottom/Container"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-
-[node name="Container" type="Container" parent="UI/Gameplay/UI/Bottom/Container/Control3"]
-layout_mode = 2
-size_flags_vertical = 3
-script = ExtResource("6_45aep")
-content_scale = 3.0
-metadata/_edit_use_anchors_ = true
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/Gameplay/UI/Bottom/Container/Control3/Container"]
-layout_mode = 2
-theme_override_constants/margin_top = 1
-
-[node name="LabelName" type="Label" parent="UI/Gameplay/UI/Bottom/Container/Control3/Container/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
-theme = ExtResource("2_ej4tk")
-theme_override_font_sizes/font_size = 15
-text = "01"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="NinePatchRect" type="NinePatchRect" parent="UI/Gameplay/UI/Bottom/Container/Control3/Container"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_eod45")
-region_rect = Rect2(0, 0, 16, 16)
-patch_margin_left = 2
-patch_margin_top = 2
-patch_margin_right = 2
-patch_margin_bottom = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="Container2" type="Container" parent="UI/Gameplay/UI/Bottom/Container/Control3"]
-layout_mode = 2
-size_flags_vertical = 3
-script = ExtResource("6_45aep")
-content_scale = 3.0
-metadata/_edit_use_anchors_ = true
-
-[node name="NinePatchRect" type="NinePatchRect" parent="UI/Gameplay/UI/Bottom/Container/Control3/Container2"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_eod45")
-region_rect = Rect2(0, 0, 16, 16)
-patch_margin_left = 2
-patch_margin_top = 2
-patch_margin_right = 2
-patch_margin_bottom = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="Control" type="Control" parent="UI/Gameplay/UI/Bottom/Container/Control3/Container2"]
-layout_mode = 2
-
-[node name="ColorRect" type="ColorRect" parent="UI/Gameplay/UI/Bottom/Container/Control3/Container2/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -44.6667
-offset_bottom = -12.6667
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(3, 3)
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/Gameplay/UI/Bottom/Container/Control3/Container2"]
-layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 1
-
-[node name="LabelPercentage" type="Label" parent="UI/Gameplay/UI/Bottom/Container/Control3/Container2/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 6
-theme = ExtResource("2_ej4tk")
-theme_override_colors/font_color = Color(0, 0.192157, 0.333333, 1)
-theme_override_colors/font_outline_color = Color(0.517647, 0.933333, 0.992157, 1)
-theme_override_constants/outline_size = 4
-theme_override_font_sizes/font_size = 15
-text = "100%"
-vertical_alignment = 1
-
-[node name="Control4" type="VBoxContainer" parent="UI/Gameplay/UI/Bottom/Container"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-
-[node name="Container" type="Container" parent="UI/Gameplay/UI/Bottom/Container/Control4"]
-layout_mode = 2
-size_flags_vertical = 3
-script = ExtResource("6_45aep")
-content_scale = 3.0
-metadata/_edit_use_anchors_ = true
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/Gameplay/UI/Bottom/Container/Control4/Container"]
-layout_mode = 2
-theme_override_constants/margin_top = 1
-
-[node name="LabelName" type="Label" parent="UI/Gameplay/UI/Bottom/Container/Control4/Container/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
-theme = ExtResource("2_ej4tk")
-theme_override_font_sizes/font_size = 15
-text = "01"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="NinePatchRect" type="NinePatchRect" parent="UI/Gameplay/UI/Bottom/Container/Control4/Container"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_eod45")
-region_rect = Rect2(0, 0, 16, 16)
-patch_margin_left = 2
-patch_margin_top = 2
-patch_margin_right = 2
-patch_margin_bottom = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="Container2" type="Container" parent="UI/Gameplay/UI/Bottom/Container/Control4"]
-layout_mode = 2
-size_flags_vertical = 3
-script = ExtResource("6_45aep")
-content_scale = 3.0
-metadata/_edit_use_anchors_ = true
-
-[node name="NinePatchRect" type="NinePatchRect" parent="UI/Gameplay/UI/Bottom/Container/Control4/Container2"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_eod45")
-region_rect = Rect2(0, 0, 16, 16)
-patch_margin_left = 2
-patch_margin_top = 2
-patch_margin_right = 2
-patch_margin_bottom = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="Control" type="Control" parent="UI/Gameplay/UI/Bottom/Container/Control4/Container2"]
-layout_mode = 2
-
-[node name="ColorRect" type="ColorRect" parent="UI/Gameplay/UI/Bottom/Container/Control4/Container2/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -44.6667
-offset_bottom = -12.6667
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(3, 3)
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/Gameplay/UI/Bottom/Container/Control4/Container2"]
-layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 1
-
-[node name="LabelPercentage" type="Label" parent="UI/Gameplay/UI/Bottom/Container/Control4/Container2/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 6
-theme = ExtResource("2_ej4tk")
-theme_override_colors/font_color = Color(0, 0.192157, 0.333333, 1)
-theme_override_colors/font_outline_color = Color(0.517647, 0.933333, 0.992157, 1)
-theme_override_constants/outline_size = 4
-theme_override_font_sizes/font_size = 15
-text = "100%"
-vertical_alignment = 1
-
-[node name="Control5" type="VBoxContainer" parent="UI/Gameplay/UI/Bottom/Container"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-
-[node name="Container" type="Container" parent="UI/Gameplay/UI/Bottom/Container/Control5"]
-layout_mode = 2
-size_flags_vertical = 3
-script = ExtResource("6_45aep")
-content_scale = 3.0
-metadata/_edit_use_anchors_ = true
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/Gameplay/UI/Bottom/Container/Control5/Container"]
-layout_mode = 2
-theme_override_constants/margin_top = 1
-
-[node name="LabelName" type="Label" parent="UI/Gameplay/UI/Bottom/Container/Control5/Container/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
-theme = ExtResource("2_ej4tk")
-theme_override_font_sizes/font_size = 15
-text = "01"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="NinePatchRect" type="NinePatchRect" parent="UI/Gameplay/UI/Bottom/Container/Control5/Container"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_eod45")
-region_rect = Rect2(0, 0, 16, 16)
-patch_margin_left = 2
-patch_margin_top = 2
-patch_margin_right = 2
-patch_margin_bottom = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="Container2" type="Container" parent="UI/Gameplay/UI/Bottom/Container/Control5"]
-layout_mode = 2
-size_flags_vertical = 3
-script = ExtResource("6_45aep")
-content_scale = 3.0
-metadata/_edit_use_anchors_ = true
-
-[node name="NinePatchRect" type="NinePatchRect" parent="UI/Gameplay/UI/Bottom/Container/Control5/Container2"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_eod45")
-region_rect = Rect2(0, 0, 16, 16)
-patch_margin_left = 2
-patch_margin_top = 2
-patch_margin_right = 2
-patch_margin_bottom = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="Control" type="Control" parent="UI/Gameplay/UI/Bottom/Container/Control5/Container2"]
-layout_mode = 2
-
-[node name="ColorRect" type="ColorRect" parent="UI/Gameplay/UI/Bottom/Container/Control5/Container2/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -44.6667
-offset_bottom = -12.6667
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(3, 3)
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/Gameplay/UI/Bottom/Container/Control5/Container2"]
-layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 1
-
-[node name="LabelPercentage" type="Label" parent="UI/Gameplay/UI/Bottom/Container/Control5/Container2/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 6
-theme = ExtResource("2_ej4tk")
-theme_override_colors/font_color = Color(0, 0.192157, 0.333333, 1)
-theme_override_colors/font_outline_color = Color(0.517647, 0.933333, 0.992157, 1)
-theme_override_constants/outline_size = 4
-theme_override_font_sizes/font_size = 15
-text = "100%"
+theme_override_font_sizes/font_size = 30
+text = "[Space] Refine         [R] Restart"
+horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

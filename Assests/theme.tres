@@ -1,10 +1,15 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://dplwn4m0n2xu3"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://dplwn4m0n2xu3"]
 
 [ext_resource type="FontFile" uid="uid://d2vkaervcbbgh" path="res://Assests/FormaDJRText-ExtraBold-Testing.ttf" id="1_e1x85"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e1x85"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cjfk0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1ef1b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_55q75"]
+bg_color = Color(1, 1, 1, 1)
 
 [resource]
 default_font = ExtResource("1_e1x85")
@@ -15,3 +20,9 @@ LineEdit/colors/font_color = Color(0.521569, 0.941176, 1, 1)
 LineEdit/constants/caret_width = 30
 LineEdit/styles/focus = SubResource("StyleBoxEmpty_e1x85")
 LineEdit/styles/normal = SubResource("StyleBoxEmpty_cjfk0")
+ProgressBar/colors/font_color = Color(0, 0.176471, 0.329412, 1)
+ProgressBar/colors/font_outline_color = Color(0.521569, 0.941176, 1, 1)
+ProgressBar/constants/outline_size = 3
+ProgressBar/font_sizes/font_size = 16
+ProgressBar/styles/background = SubResource("StyleBoxEmpty_1ef1b")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_55q75")

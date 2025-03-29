@@ -1,9 +1,16 @@
-extends CanvasLayer
+class_name Gameplay extends CanvasLayer
 
 @onready var input_name: LineEdit = %InputName
 @onready var label_name: Label = %LabelName
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+enum SCORES {
+	WO,
+	FC,
+	DR,
+	MA
+}
 
 var isGameStarted: bool = false
 

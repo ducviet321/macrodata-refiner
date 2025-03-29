@@ -549,7 +549,7 @@ anchor_left = 0.342417
 anchor_top = 0.276
 anchor_right = 0.657292
 anchor_bottom = 0.285156
-offset_left = 604.56
+offset_left = 0.559937
 offset_top = -0.280029
 grow_horizontal = 2
 grow_vertical = 2
@@ -565,8 +565,6 @@ anchor_left = 0.346875
 anchor_top = 0.454688
 anchor_right = 0.656771
 anchor_bottom = 0.464063
-offset_left = 593.0
-offset_right = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_2ihbs")
@@ -894,21 +892,20 @@ metadata/_edit_use_anchors_ = true
 [node name="Box" parent="UI/Gameplay/UI/Bottom/Container" instance=ExtResource("8_tyrfw")]
 layout_mode = 2
 
+[node name="BoxScoreFC" parent="UI/Gameplay/UI/Bottom/Container/Box/Container/Opening/Score Container/Tempers/BoxScoreContainer" index="1"]
+modulate = Color(0.68, 0.834667, 1, 1)
+
 [node name="Box2" parent="UI/Gameplay/UI/Bottom/Container" instance=ExtResource("8_tyrfw")]
 layout_mode = 2
-box_index = 1
 
 [node name="Box3" parent="UI/Gameplay/UI/Bottom/Container" instance=ExtResource("8_tyrfw")]
 layout_mode = 2
-box_index = 2
 
 [node name="Box4" parent="UI/Gameplay/UI/Bottom/Container" instance=ExtResource("8_tyrfw")]
 layout_mode = 2
-box_index = 3
 
 [node name="Box5" parent="UI/Gameplay/UI/Bottom/Container" instance=ExtResource("8_tyrfw")]
 layout_mode = 2
-box_index = 4
 
 [node name="Label" type="Label" parent="UI/Gameplay/UI/Bottom"]
 layout_mode = 1
@@ -985,3 +982,6 @@ mouse_filter = 2
 metadata/_edit_lock_ = true
 
 [connection signal="text_submitted" from="UI/Root/Label 85f0ff/InputName" to="." method="_on_input_name_text_submitted"]
+
+[editable path="UI/Gameplay/UI/Bottom/Container/Box"]
+[editable path="UI/Gameplay/UI/Bottom/Container/Box/Container/Opening/Score Container/Tempers/BoxScoreContainer/BoxScoreWO"]

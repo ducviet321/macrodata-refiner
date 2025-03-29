@@ -1,25 +1,29 @@
-[gd_scene load_steps=6 format=3 uid="uid://bihfbbiwyykfh"]
+[gd_scene load_steps=7 format=3 uid="uid://bihfbbiwyykfh"]
 
 [ext_resource type="Script" uid="uid://cqlaabxbj3i3k" path="res://box.gd" id="1_bqn3j"]
 [ext_resource type="Theme" uid="uid://dplwn4m0n2xu3" path="res://Assests/theme.tres" id="2_3n43a"]
+[ext_resource type="PackedScene" uid="uid://c12jkcfetea6o" path="res://box_score.tscn" id="2_jjbh2"]
 [ext_resource type="Script" path="res://Assests/ui_scaler.gd" id="3_jjbh2"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_45aep"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bqn3j"]
 load_path = "res://.godot/imported/spritesheet.png-a1c390f16a2e861eaae846923967ec5f.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eod45"]
-atlas = SubResource("CompressedTexture2D_45aep")
+atlas = SubResource("CompressedTexture2D_bqn3j")
 region = Rect2(0, 0, 16, 16)
 
 [node name="Box" type="VBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
-offset_right = 200.0
-offset_bottom = 117.0
+offset_left = 130.387
+offset_top = 324.55
+offset_right = 330.387
+offset_bottom = 441.55
 script = ExtResource("1_bqn3j")
 
 [node name="Container" type="Control" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="Opening" type="Control" parent="Container"]
@@ -30,6 +34,7 @@ anchor_bottom = 1.0
 offset_top = -191.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Score Container" type="ColorRect" parent="Container/Opening"]
 layout_mode = 1
@@ -39,6 +44,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0.180392, 0.313726, 1)
 metadata/_edit_use_anchors_ = true
 
@@ -49,6 +55,7 @@ anchor_bottom = 0.972
 offset_right = 4.0
 offset_bottom = -16.084
 grow_horizontal = 2
+mouse_filter = 2
 
 [node name="Bar Right" type="ColorRect" parent="Container/Opening/Score Container"]
 layout_mode = 1
@@ -58,6 +65,7 @@ offset_left = 196.0
 offset_right = 200.0
 offset_bottom = -16.084
 grow_horizontal = 2
+mouse_filter = 2
 
 [node name="Bar Top" type="ColorRect" parent="Container/Opening/Score Container"]
 layout_mode = 1
@@ -66,6 +74,7 @@ anchor_right = 0.026
 offset_right = 190.8
 offset_bottom = 5.0
 grow_horizontal = 2
+mouse_filter = 2
 
 [node name="Tempers" type="MarginContainer" parent="Container/Opening/Score Container"]
 layout_mode = 1
@@ -80,233 +89,24 @@ theme_override_constants/margin_right = 13
 theme_override_constants/margin_bottom = 15
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Container/Opening/Score Container/Tempers"]
+[node name="BoxScoreContainer" type="VBoxContainer" parent="Container/Opening/Score Container/Tempers"]
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="ScoreWo" type="HBoxContainer" parent="Container/Opening/Score Container/Tempers/VBoxContainer"]
-modulate = Color(0.899667, 1, 0.86, 1)
-custom_minimum_size = Vector2(0, 30)
+[node name="BoxScoreWO" parent="Container/Opening/Score Container/Tempers/BoxScoreContainer" instance=ExtResource("2_jjbh2")]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Container/Opening/Score Container/Tempers/VBoxContainer/ScoreWo"]
+[node name="BoxScoreFC" parent="Container/Opening/Score Container/Tempers/BoxScoreContainer" instance=ExtResource("2_jjbh2")]
 layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_right = 5
+score_type = 1
 
-[node name="Label 85f0ff2" type="Label" parent="Container/Opening/Score Container/Tempers/VBoxContainer/ScoreWo/MarginContainer"]
+[node name="BoxScoreDR" parent="Container/Opening/Score Container/Tempers/BoxScoreContainer" instance=ExtResource("2_jjbh2")]
 layout_mode = 2
-theme = ExtResource("2_3n43a")
-theme_override_font_sizes/font_size = 20
-text = "WO"
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
+score_type = 2
 
-[node name="Control" type="Control" parent="Container/Opening/Score Container/Tempers/VBoxContainer/ScoreWo"]
+[node name="BoxScoreMA" parent="Container/Opening/Score Container/Tempers/BoxScoreContainer" instance=ExtResource("2_jjbh2")]
 layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Border" type="Container" parent="Container/Opening/Score Container/Tempers/VBoxContainer/ScoreWo/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-script = ExtResource("3_jjbh2")
-
-[node name="NinePatchRect" type="NinePatchRect" parent="Container/Opening/Score Container/Tempers/VBoxContainer/ScoreWo/Control/Border"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_eod45")
-region_rect = Rect2(0, 0, 16, 16)
-patch_margin_left = 2
-patch_margin_top = 2
-patch_margin_right = 2
-patch_margin_bottom = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="ProgressBar" type="ProgressBar" parent="Container/Opening/Score Container/Tempers/VBoxContainer/ScoreWo/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-theme = ExtResource("2_3n43a")
-value = 80.0
-show_percentage = false
-
-[node name="ScoreWo2" type="HBoxContainer" parent="Container/Opening/Score Container/Tempers/VBoxContainer"]
-modulate = Color(0.899667, 1, 0.86, 1)
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Container/Opening/Score Container/Tempers/VBoxContainer/ScoreWo2"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_right = 5
-
-[node name="Label 85f0ff2" type="Label" parent="Container/Opening/Score Container/Tempers/VBoxContainer/ScoreWo2/MarginContainer"]
-layout_mode = 2
-theme = ExtResource("2_3n43a")
-theme_override_font_sizes/font_size = 20
-text = "WO"
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="Control" type="Control" parent="Container/Opening/Score Container/Tempers/VBoxContainer/ScoreWo2"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Border" type="Container" parent="Container/Opening/Score Container/Tempers/VBoxContainer/ScoreWo2/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-script = ExtResource("3_jjbh2")
-
-[node name="NinePatchRect" type="NinePatchRect" parent="Container/Opening/Score Container/Tempers/VBoxContainer/ScoreWo2/Control/Border"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_eod45")
-region_rect = Rect2(0, 0, 16, 16)
-patch_margin_left = 2
-patch_margin_top = 2
-patch_margin_right = 2
-patch_margin_bottom = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="ProgressBar" type="ProgressBar" parent="Container/Opening/Score Container/Tempers/VBoxContainer/ScoreWo2/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-theme = ExtResource("2_3n43a")
-value = 80.0
-show_percentage = false
-
-[node name="ScoreWo3" type="HBoxContainer" parent="Container/Opening/Score Container/Tempers/VBoxContainer"]
-modulate = Color(0.899667, 1, 0.86, 1)
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Container/Opening/Score Container/Tempers/VBoxContainer/ScoreWo3"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_right = 5
-
-[node name="Label 85f0ff2" type="Label" parent="Container/Opening/Score Container/Tempers/VBoxContainer/ScoreWo3/MarginContainer"]
-layout_mode = 2
-theme = ExtResource("2_3n43a")
-theme_override_font_sizes/font_size = 20
-text = "WO"
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="Control" type="Control" parent="Container/Opening/Score Container/Tempers/VBoxContainer/ScoreWo3"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Border" type="Container" parent="Container/Opening/Score Container/Tempers/VBoxContainer/ScoreWo3/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-script = ExtResource("3_jjbh2")
-
-[node name="NinePatchRect" type="NinePatchRect" parent="Container/Opening/Score Container/Tempers/VBoxContainer/ScoreWo3/Control/Border"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_eod45")
-region_rect = Rect2(0, 0, 16, 16)
-patch_margin_left = 2
-patch_margin_top = 2
-patch_margin_right = 2
-patch_margin_bottom = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="ProgressBar" type="ProgressBar" parent="Container/Opening/Score Container/Tempers/VBoxContainer/ScoreWo3/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-theme = ExtResource("2_3n43a")
-value = 80.0
-show_percentage = false
-
-[node name="ScoreWo4" type="HBoxContainer" parent="Container/Opening/Score Container/Tempers/VBoxContainer"]
-modulate = Color(0.899667, 1, 0.86, 1)
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Container/Opening/Score Container/Tempers/VBoxContainer/ScoreWo4"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_right = 5
-
-[node name="Label 85f0ff2" type="Label" parent="Container/Opening/Score Container/Tempers/VBoxContainer/ScoreWo4/MarginContainer"]
-layout_mode = 2
-theme = ExtResource("2_3n43a")
-theme_override_font_sizes/font_size = 20
-text = "WO"
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="Control" type="Control" parent="Container/Opening/Score Container/Tempers/VBoxContainer/ScoreWo4"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Border" type="Container" parent="Container/Opening/Score Container/Tempers/VBoxContainer/ScoreWo4/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-script = ExtResource("3_jjbh2")
-
-[node name="NinePatchRect" type="NinePatchRect" parent="Container/Opening/Score Container/Tempers/VBoxContainer/ScoreWo4/Control/Border"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_eod45")
-region_rect = Rect2(0, 0, 16, 16)
-patch_margin_left = 2
-patch_margin_top = 2
-patch_margin_right = 2
-patch_margin_bottom = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="ProgressBar" type="ProgressBar" parent="Container/Opening/Score Container/Tempers/VBoxContainer/ScoreWo4/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-theme = ExtResource("2_3n43a")
-value = 80.0
-show_percentage = false
+score_type = 3
 
 [node name="Right Door" type="ColorRect" parent="Container/Opening"]
 layout_mode = 1
@@ -379,6 +179,7 @@ metadata/_edit_use_anchors_ = true
 [node name="Control" type="Control" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="Border" type="Container" parent="Control"]
 layout_mode = 1
@@ -410,7 +211,9 @@ anchor_right = 0.975
 anchor_bottom = 0.910714
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme = ExtResource("2_3n43a")
+max_value = 500.0
 value = 80.0
 show_percentage = false
 metadata/_edit_use_anchors_ = true
@@ -431,5 +234,15 @@ theme_override_font_sizes/font_size = 30
 text = "100%"
 vertical_alignment = 1
 
+[node name="Button" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 257.0
+offset_top = -106.0
+offset_right = 472.0
+offset_bottom = -45.0
+text = "Debug Add Score"
+
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="value_changed" from="Control/BoxProgress" to="." method="_on_box_progress_value_changed"]
+[connection signal="pressed" from="Control/Button" to="." method="_on_button_pressed"]

@@ -1,0 +1,73 @@
+[gd_scene load_steps=6 format=3 uid="uid://c12jkcfetea6o"]
+
+[ext_resource type="Theme" uid="uid://dplwn4m0n2xu3" path="res://Assests/theme.tres" id="1_0k82o"]
+[ext_resource type="Script" uid="uid://dc6nj0bidgvuo" path="res://box_score.gd" id="1_wno7m"]
+[ext_resource type="Script" path="res://Assests/ui_scaler.gd" id="2_wno7m"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bqn3j"]
+load_path = "res://.godot/imported/spritesheet.png-a1c390f16a2e861eaae846923967ec5f.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eod45"]
+atlas = SubResource("CompressedTexture2D_bqn3j")
+region = Rect2(0, 0, 16, 16)
+
+[node name="BoxScore" type="HBoxContainer"]
+modulate = Color(0.899667, 1, 0.86, 1)
+custom_minimum_size = Vector2(0, 30)
+offset_right = 254.0
+offset_bottom = 30.0
+script = ExtResource("1_wno7m")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="Label 85f0ff2" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme = ExtResource("1_0k82o")
+theme_override_font_sizes/font_size = 20
+text = "WO"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Border" type="Container" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("2_wno7m")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Control/Border"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_eod45")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ProgressBar" type="ProgressBar" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+mouse_filter = 2
+theme = ExtResource("1_0k82o")
+value = 80.0
+show_percentage = false

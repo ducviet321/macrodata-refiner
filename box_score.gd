@@ -8,20 +8,22 @@ var tween_progress: Tween
 var current_score: float = 0.0
 
 const SCORE_TO_COLOR: Dictionary[Gameplay.SCORES, Color] = {
-	Gameplay.SCORES.WO: "#e5ffdb",
-	Gameplay.SCORES.FC: "#efea90",
-	Gameplay.SCORES.DR: Color(1.5, 1.5, 1.5),
-	Gameplay.SCORES.MA: "#add5ff",
+	Gameplay.SCORES.WO: "#ccffde",
+	Gameplay.SCORES.FC: "#e6edc7",
+	Gameplay.SCORES.DR: "#f0f8ff",
+	Gameplay.SCORES.MA: "#8accff",
 }
 		
 func _ready() -> void:
 	label.text = Gameplay.SCORES.keys()[score_type]
 	modulate = SCORE_TO_COLOR[score_type]
-	reset()
 	
-func reset():
-	current_score = 0.0
-	progress_bar.value = 0.0
+func reset(should_animate: bool = true):
+	if should_animate:
+		add_score(-current_score)
+	else:
+		current_score = 0.0
+		progress_bar.value = 0.0
 	
 func add_score(value: float) -> float:
 	var addable_score: float = value
@@ -29,7 +31,7 @@ func add_score(value: float) -> float:
 	if progress_bar.value + addable_score > progress_bar.max_value:
 		addable_score = progress_bar.max_value - current_score
 		
-	current_score += current_score
+	current_score += addable_score
 	
 	if tween_progress and tween_progress.is_running():
 		tween_progress.stop()

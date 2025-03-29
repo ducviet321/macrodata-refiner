@@ -4,6 +4,7 @@ class_name Gameplay extends CanvasLayer
 @onready var label_name: Label = %LabelName
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var box_container: HBoxContainer = $UI/Gameplay/UI/Bottom/BoxContainer
 
 enum SCORES {
 	WO,
@@ -13,13 +14,17 @@ enum SCORES {
 }
 
 var isGameStarted: bool = false
+var boxes: Array[Box] = []
 
 func _ready() -> void:
 	input_name.text = ""
 	input_name.grab_focus()
 	
+	for child in box_container.get_children():
+		if child is Box:
+			boxes.append(child)
 	
-func start():
+func start(is_restart: bool = true):
 	""" Rules:
 	- Find all matched color numbers and fill it in each folder
 		
@@ -29,9 +34,12 @@ func start():
 		DR = White
 		MA = Blue
 	"""
+	if is_restart:
+		for box: Box in boxes:
+			box.reset()
+	
 	isGameStarted = true
-
-
+	
 func _on_input_name_text_submitted(new_text: String) -> void:
 	if isGameStarted: return
 	

@@ -21,6 +21,8 @@ var number: int = -1:
 
 var focus_tween: Tween
 var is_active: bool = false
+var grid_x: int = -1
+var grid_y: int = -1
 
 func _ready() -> void:
 	# fade_in() # TODO Remove
@@ -78,3 +80,34 @@ func _notification(what: int) -> void:
 				label_id.scale = Vector2.ONE
 				label_id.modulate.a = 1.0
 				animation_player.play(&"move0")
+
+func fly_to_target(target_position: Vector2) -> void:
+	# Create a visual clone for the animation
+	var clone = Node2D.new()
+	var label_clone = Label.new()
+	
+	# Setup clone appearance
+	label_clone.text = str(number)
+	label_clone.add_theme_font_size_override("font_size", 32)
+	label_clone.modulate = modulate
+	clone.global_position = global_position
+	clone.add_child(label_clone)
+	
+	# Add clone to scene
+	get_tree().root.add_child(clone)
+	
+	# Hide the original number
+	visible = false
+	
+	# Create animation tween
+	var tween = create_tween()
+	tween.set_parallel()
+	tween.tween_property(clone, "global_position", target_position, 0.5)\
+		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(clone, "scale", Vector2.ZERO, 0.5)\
+		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+	
+	# Clean up after animation
+	tween.chain().tween_callback(func():
+		clone.queue_free()
+	)

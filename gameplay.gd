@@ -12,9 +12,6 @@ class_name Gameplay extends CanvasLayer
 @onready var label_left: Label = $UI/Gameplay/UI/Bottom/LabelLeft
 @onready var label_middle: Label = $UI/Gameplay/UI/Bottom/LabelMiddle
 
-@onready var score_label: Label = %ScoreLabel
-@onready var score_tween: Tween
-
 """​The Four Tempers introduced by Lumon Industries' founder, Kier Eagan:
 
 WO (Woe) – Represents sadness, despair, grief, or sorrow. Numbers in this category may evoke a sense of loss or suffering.
@@ -68,7 +65,13 @@ var selected_numbers: Array[Number] = []
 var current_score: int = 0
 var is_selecting: bool = false
 var is_unselecting_mode: bool = false
+var score_tween: Tween
 
+# Add these variables to store calculation results
+var current_dominant_type: SCORES
+var current_dominant_sum: int
+var current_other_sum: int
+var current_dominant_count: int
 
 func _ready() -> void:
 	instance = self
@@ -101,8 +104,28 @@ func _process(delta: float) -> void:
 		mouse_container.global_position = world_position
 		
 func submit_score(box: Box):
-	pass
+	if selected_numbers.is_empty():
+		return
 		
+	var final_score = (current_dominant_sum - current_other_sum) * current_dominant_count
+	
+	# Add score to box
+	box.add_score(current_dominant_type, final_score)
+	
+	# Animate numbers flying to the box
+	for number in selected_numbers:
+		number.fly_to_target(box.global_position)
+	
+	selected_numbers.clear()
+
+	# Animate label increase score
+	var tween = create_tween()
+	tween.set_parallel()
+	tween.tween_method(func(value: float):
+		label_middle.text = "+" + str(int(value))
+	, 0, final_score, 0.5).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+
+
 func handle_drag():
 	var current_mouse_pos = get_viewport().get_mouse_position()
 	var mouse_delta = (last_mouse_position - current_mouse_pos) 
@@ -177,6 +200,8 @@ func spawnNumbers(should_clear: bool = true):
 		for column in range(NUMBER_ROW_COUNT):
 			var number: Number = NUMBER.instantiate()
 			number.score_type = randi_range(0, SCORES.size() - 1)
+			number.grid_x = row
+			number.grid_y = column
 	
 			if player_name == "vit": # Cheat mode, show colors
 				number.modulate = SCORE_TO_COLOR[number.score_type]
@@ -244,6 +269,10 @@ func toggle_number_selection(number: Number) -> void:
 func update_score_label():
 	if selected_numbers.is_empty():
 		label_middle.text = "0x0"
+		current_dominant_type = SCORES.WO
+		current_dominant_sum = 0
+		current_other_sum = 0
+		current_dominant_count = 0
 		return
 		
 	# Count numbers by score type
@@ -267,32 +296,41 @@ func update_score_label():
 		sum_by_type[number.score_type] += number.number
 	
 	# Find dominant type (highest count)
-	var dominant_type = SCORES.WO
+	current_dominant_type = SCORES.WO
 	var max_count = 0
 	
 	for type in counts.keys():
 		if counts[type] > max_count:
 			max_count = counts[type]
-			dominant_type = type
+			current_dominant_type = type
 	
-	var dominant_sum = sum_by_type[dominant_type]
-	var other_sum = 0
+	current_dominant_sum = sum_by_type[current_dominant_type]
+	current_other_sum = 0
 	
 	for type in sum_by_type.keys():
-		if type != dominant_type:
-			other_sum += sum_by_type[type]
+		if type != current_dominant_type:
+			current_other_sum += sum_by_type[type]
+			
+	current_dominant_count = counts[current_dominant_type]
 	
-	if other_sum == 0:
-		if counts[dominant_type] == 0:
-			label_middle.text = "%d" % dominant_sum
+	if current_other_sum == 0:
+		if current_dominant_count == 0:
+			label_middle.text = "%d" % current_dominant_sum
 		else:
-			label_middle.text = "%d×%d" % [dominant_sum, counts[dominant_type]]
+			label_middle.text = "%d×%d" % [current_dominant_sum, current_dominant_count]
 	else:
-		if counts[dominant_type] <= 1:
-			label_middle.text = "(%d - %d)" % [dominant_sum, other_sum]
+		if current_dominant_count <= 1:
+			label_middle.text = "(%d - %d)" % [current_dominant_sum, current_other_sum]
 		else:
-			label_middle.text = "(%d - %d) × %d" % [dominant_sum, other_sum, counts[dominant_type]]
-		
+			label_middle.text = "(%d - %d) × %d" % [current_dominant_sum, current_other_sum, current_dominant_count]
+
+func is_adjacent(number1: Number, number2: Number) -> bool:
+	# Use stored grid coordinates instead of calculating
+	var dx = abs(number1.grid_x - number2.grid_x)
+	var dy = abs(number1.grid_y - number2.grid_y)
+	
+	return dx <= 1 and dy <= 1 and not (dx == 0 and dy == 0)
+
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed(&"mouse_right"):
 		is_dragging = true
@@ -306,7 +344,27 @@ func _unhandled_input(event: InputEvent) -> void:
 		if selected_number:
 			# Determine if we're in selecting or unselecting mode based on first number
 			is_unselecting_mode = selected_number in selected_numbers
-			toggle_number_selection(selected_number)
+			
+			# Check adjacency for initial selection too
+			var can_select = false
+			
+			if is_unselecting_mode:
+				# For unselecting, always allow if it's already selected
+				can_select = selected_number in selected_numbers
+			else:
+				# For selecting, check if it's adjacent to any selected number
+				if selected_numbers.is_empty():
+					# First number can always be selected
+					can_select = true
+				else:
+					# Check adjacency with any selected number
+					for num in selected_numbers:
+						if is_adjacent(selected_number, num):
+							can_select = true
+							break
+			
+			if can_select:
+				toggle_number_selection(selected_number)
 	elif Input.is_action_just_released(&"mouse_left"):
 		is_mouse_pressed = false
 		is_selecting = false
@@ -314,10 +372,29 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 	if event is InputEventMouseMotion and is_selecting and is_mouse_pressed:
 		if selected_number:
-			if is_unselecting_mode and selected_number in selected_numbers:
-				toggle_number_selection(selected_number)
-			elif not is_unselecting_mode and not selected_number in selected_numbers:
-				toggle_number_selection(selected_number)
+			# Only allow selection if adjacent to at least one selected number
+			var can_select = false
+			
+			if is_unselecting_mode:
+				# For unselecting, always allow if it's already selected
+				can_select = selected_number in selected_numbers
+			else:
+				# For selecting, check if it's adjacent to any selected number
+				if selected_numbers.is_empty():
+					# First number can always be selected
+					can_select = true
+				else:
+					# Check adjacency with any selected number
+					for num in selected_numbers:
+						if is_adjacent(selected_number, num):
+							can_select = true
+							break
+			
+			if can_select:
+				if is_unselecting_mode and selected_number in selected_numbers:
+					toggle_number_selection(selected_number)
+				elif not is_unselecting_mode and not selected_number in selected_numbers:
+					toggle_number_selection(selected_number)
 
 	if Input.is_action_just_pressed(&"scroll_up"):
 		target_zoom = (target_zoom + Vector2(0.1, 0.1)).clamp(Vector2.ONE * MIN_ZOOM, Vector2.ONE * MAX_ZOOM)

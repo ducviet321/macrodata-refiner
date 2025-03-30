@@ -25,10 +25,10 @@ MA (Malice) – Stands for anger, hostility, and aggression. Numbers in this cat
 """
 
 const NUMBER = preload("res://number.tscn")
-# const NUMBER_ROW_COUNT: int = 33
-# const NUMBER_COLLUMN_COUNT: int = 80
-const NUMBER_ROW_COUNT: int = 20
-const NUMBER_COLLUMN_COUNT: int = 48
+#const NUMBER_ROW_COUNT: int = 5
+#const NUMBER_COLLUMN_COUNT: int = 5
+const NUMBER_ROW_COUNT: int = 30
+const NUMBER_COLLUMN_COUNT: int = 52
 const NUMBER_SPACING := 120.0
 const MIN_ZOOM: float = 0.4
 const MAX_ZOOM: float = 1.0
@@ -292,6 +292,7 @@ func _on_input_name_text_submitted(new_text: String) -> void:
 	label_name.text = new_text
 	player_name = new_text
 	label_85f_0_ff.visible = false
+	animation_player.seek(12.0) # End intro
 	animation_player.play(&"show_game")
 	start()
 	

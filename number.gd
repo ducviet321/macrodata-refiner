@@ -30,12 +30,14 @@ func _ready() -> void:
 	pass
 	
 func fade_in() -> void:
+	animation_player.speed_scale = 1.0
 	animation_player.play(&"RESET")
 	await get_tree().create_timer(randf_range(1.0, 5.0)).timeout # Random delay before showing
 	animation_player.play(&"show")
 	await get_tree().create_timer(2.0).timeout
 	animation_player.speed_scale = randf_range(0.1, 1.0)
 	animation_player.play(&"move0")
+	#print("fade_in()", grid_x, " ", grid_y)
 	
 func toggle_select() -> bool:
 	if tween and tween.is_running():
@@ -124,10 +126,7 @@ func reset_state() -> void:
 	if focus_tween and focus_tween.is_running():
 		focus_tween.kill()
 		
-	# Reset visibility and active state
 	visible = true
 	is_used = false
 	is_active = false
-	label_id.scale = Vector2.ONE
-	label_id.modulate.a = 1.0
-	fade_in()
+	animation_player.stop()

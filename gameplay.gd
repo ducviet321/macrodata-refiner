@@ -8,6 +8,12 @@ class_name Gameplay extends CanvasLayer
 @onready var number_container: Node2D = %NumberContainer
 @onready var camera_2d: Camera2D = %Camera2D
 @onready var sub_viewport: SubViewport = $UI/Gameplay/Control/SubViewportContainer/SubViewport
+@onready var mouse_container: Node2D = $UI/Gameplay/Control/SubViewportContainer/SubViewport/MouseContainer
+@onready var label_left: Label = $UI/Gameplay/UI/Bottom/LabelLeft
+@onready var label_middle: Label = $UI/Gameplay/UI/Bottom/LabelMiddle
+
+@onready var score_label: Label = %ScoreLabel
+@onready var score_tween: Tween
 
 """​The Four Tempers introduced by Lumon Industries' founder, Kier Eagan:
 
@@ -32,6 +38,13 @@ const GRID_SPACING := 120.0
 const VISIBILITY_MARGIN_H := 100.0    # Horizontal margin
 const VISIBILITY_MARGIN_TOP := 100.0  # Top margin (larger for UI elements)
 const VISIBILITY_MARGIN_BOTTOM := 400.0  # Bottom margin
+const SCORE_TO_COLOR: Dictionary[Gameplay.SCORES, Color] = {
+	Gameplay.SCORES.WO: "#ccffde",
+	Gameplay.SCORES.FC: "#eaefa2",
+	Gameplay.SCORES.DR: "#f0f8ff",
+	Gameplay.SCORES.MA: "#8accff",
+}
+
 enum SCORES {
 	WO,
 	FC,
@@ -39,16 +52,26 @@ enum SCORES {
 	MA
 }
 
+static var instance: Gameplay
+static var player_name: String = "vit"
+
 var is_game_started: bool = false
 var boxes: Array[Box] = []
 var number_grid: Array[Array] = []
 var is_dragging: bool = false
 var last_mouse_position: Vector2 = Vector2.ZERO
-
 var current_zoom_tween: Tween
 var target_zoom: Vector2 = Vector2.ONE
+var selected_number: Number = null
+var is_mouse_pressed: bool = false
+var selected_numbers: Array[Number] = []
+var current_score: int = 0
+var is_selecting: bool = false
+var is_unselecting_mode: bool = false
+
 
 func _ready() -> void:
+	instance = self
 	input_name.text = ""
 	input_name.grab_focus()
 	
@@ -71,6 +94,14 @@ func _process(delta: float) -> void:
 			camera_2d.zoom = camera_2d.zoom.lerp(target_zoom, ZOOM_SPEED * delta)
 			
 		hide_outside_numbers()
+		
+		# Update mouse_area_2d position with direct world position calculation
+		var viewport_mouse = sub_viewport.get_mouse_position()
+		var world_position = camera_2d.get_screen_center_position() + (viewport_mouse - sub_viewport.get_visible_rect().size/2) / camera_2d.zoom
+		mouse_container.global_position = world_position
+		
+func submit_score(box: Box):
+	pass
 		
 func handle_drag():
 	var current_mouse_pos = get_viewport().get_mouse_position()
@@ -114,7 +145,7 @@ func hide_outside_numbers():
 	)
 	
 	for row in number_grid:
-		for number: Node2D in row:
+		for number: Number in row:
 			if camera_rect.has_point(number.position):
 				number.process_mode = Node.PROCESS_MODE_INHERIT
 				number.visible = true
@@ -144,7 +175,12 @@ func spawnNumbers(should_clear: bool = true):
 	for row in range(NUMBER_COLLUMN_COUNT):
 		var number_row: Array = []
 		for column in range(NUMBER_ROW_COUNT):
-			var number: Node2D = NUMBER.instantiate()
+			var number: Number = NUMBER.instantiate()
+			number.score_type = randi_range(0, SCORES.size() - 1)
+	
+			if player_name == "vit": # Cheat mode, show colors
+				number.modulate = SCORE_TO_COLOR[number.score_type]
+				
 			number.global_position = Vector2(
 				row * spacing, 
 				column * spacing
@@ -153,6 +189,30 @@ func spawnNumbers(should_clear: bool = true):
 			number_row.append(number)
 		
 		number_grid.append(number_row)
+
+	# Count same score type numbers in 8 directions around each number
+	for row_idx in range(number_grid.size()):
+		for col_idx in range(number_grid[row_idx].size()):
+			var current_number: Number = number_grid[row_idx][col_idx]
+			var count = 0
+			
+			# Check all 8 directions around the current number
+			for dr in [-1, 0, 1]:
+				for dc in [-1, 0, 1]:
+					if dr == 0 and dc == 0:
+						continue  # Skip the current number itself
+					
+					var r = row_idx + dr
+					var c = col_idx + dc
+					
+					# Check if the neighbor is within bounds
+					if r >= 0 and r < number_grid.size() and c >= 0 and c < number_grid[row_idx].size():
+						var neighbor = number_grid[r][c]
+						if neighbor.score_type == current_number.score_type:
+							count += 1
+			
+			current_number.number = count
+			current_number.fade_in()
 	
 	var viewport_size = get_viewport().get_visible_rect().size
 	camera_2d.offset = viewport_size / 2
@@ -161,22 +221,6 @@ func spawnNumbers(should_clear: bool = true):
 	camera_2d.limit_top = number_grid[0][0].position.y - 300.0
 	camera_2d.limit_bottom = number_grid[-1][-1].position.y - 300.0
 			
-func find_cells_in_circle(x: float, y: float, radius: float) -> Array:
-	var result = []
-	var center = Vector2(x, y)
-	
-	for i in range(number_grid.size()):
-		for j in range(number_grid[i].size()):
-			# Get the world position of the current cell
-			var cell: Node2D = number_grid[i][j]
-			var distance = center.distance_to(cell.global_position)
-			
-			# If the distance is less than or equal to the radius, add to result
-			if distance <= radius:
-				result.append(cell)
-	
-	return result
-	
 func _on_input_name_text_submitted(new_text: String) -> void:
 	if is_game_started: return
 	
@@ -185,32 +229,117 @@ func _on_input_name_text_submitted(new_text: String) -> void:
 		return
 		
 	label_name.text = new_text
+	player_name = new_text
 	start()
 	
-func _input(event: InputEvent) -> void:
+func toggle_number_selection(number: Number) -> void:
+	var is_selected = number.toggle_select()
+	if is_selected:
+		selected_numbers.append(number)
+	else:
+		selected_numbers.erase(number)
+	
+	update_score_label()
+
+func update_score_label():
+	if selected_numbers.is_empty():
+		label_middle.text = "0x0"
+		return
+		
+	# Count numbers by score type
+	var counts = {
+		SCORES.WO: 0,
+		SCORES.FC: 0,
+		SCORES.DR: 0,
+		SCORES.MA: 0
+	}
+	
+	var sum_by_type = {
+		SCORES.WO: 0,
+		SCORES.FC: 0,
+		SCORES.DR: 0,
+		SCORES.MA: 0
+	}
+	
+	# Calculate counts and sums for each type
+	for number in selected_numbers:
+		counts[number.score_type] += 1
+		sum_by_type[number.score_type] += number.number
+	
+	# Find dominant type (highest count)
+	var dominant_type = SCORES.WO
+	var max_count = 0
+	
+	for type in counts.keys():
+		if counts[type] > max_count:
+			max_count = counts[type]
+			dominant_type = type
+	
+	var dominant_sum = sum_by_type[dominant_type]
+	var other_sum = 0
+	
+	for type in sum_by_type.keys():
+		if type != dominant_type:
+			other_sum += sum_by_type[type]
+	
+	if other_sum == 0:
+		if counts[dominant_type] == 0:
+			label_middle.text = "%d" % dominant_sum
+		else:
+			label_middle.text = "%d×%d" % [dominant_sum, counts[dominant_type]]
+	else:
+		if counts[dominant_type] <= 1:
+			label_middle.text = "(%d - %d)" % [dominant_sum, other_sum]
+		else:
+			label_middle.text = "(%d - %d) × %d" % [dominant_sum, other_sum, counts[dominant_type]]
+		
+func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed(&"mouse_right"):
 		is_dragging = true
 		last_mouse_position = get_viewport().get_mouse_position()
 	elif Input.is_action_just_released(&"mouse_right"):
 		is_dragging = false
 		
-	if event is InputEventMouseMotion:
-		var grid_pos = get_grid_position(event.position)
-		print("Grid position:", grid_pos)
+	if Input.is_action_just_pressed(&"mouse_left"):
+		is_mouse_pressed = true
+		is_selecting = true
+		if selected_number:
+			# Determine if we're in selecting or unselecting mode based on first number
+			is_unselecting_mode = selected_number in selected_numbers
+			toggle_number_selection(selected_number)
+	elif Input.is_action_just_released(&"mouse_left"):
+		is_mouse_pressed = false
+		is_selecting = false
+		is_unselecting_mode = false
 		
-func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion and is_selecting and is_mouse_pressed:
+		if selected_number:
+			if is_unselecting_mode and selected_number in selected_numbers:
+				toggle_number_selection(selected_number)
+			elif not is_unselecting_mode and not selected_number in selected_numbers:
+				toggle_number_selection(selected_number)
+
 	if Input.is_action_just_pressed(&"scroll_up"):
 		target_zoom = (target_zoom + Vector2(0.1, 0.1)).clamp(Vector2.ONE * MIN_ZOOM, Vector2.ONE * MAX_ZOOM)
 	elif Input.is_action_just_pressed(&"scroll_down"):
 		target_zoom = (target_zoom - Vector2(0.1, 0.1)).clamp(Vector2.ONE * MIN_ZOOM, Vector2.ONE * MAX_ZOOM)
 	
-func get_grid_position(mouse_pos: Vector2) -> Vector2i:
-	var viewport_mouse = get_viewport().get_mouse_position()
-	var world_pos = (viewport_mouse - camera_2d.offset) / camera_2d.zoom + camera_2d.position
-	var grid_pos = Vector2i(
-		floor(world_pos.x / GRID_SPACING),
-		floor(world_pos.y / GRID_SPACING)
-	)
-	return grid_pos
+func _on_mouse_area_2d_area_entered(area: Area2D) -> void:
+	var node = area.get_parent()
+	if node is Number:
+		selected_number = node
 
-	
+func _on_mouse_area_2d_area_exited(area: Area2D) -> void:
+	var node = area.get_parent()
+	if node is Number and node == selected_number:
+		selected_number = null
+
+func _on_mouse_focus_area_2d_area_entered(area: Area2D) -> void:
+	var node = area.get_parent()
+	if node is Number:
+		node.toggle_focus(true)
+
+func _on_mouse_focus_area_2d_area_exited(area: Area2D) -> void:
+	var node = area.get_parent()
+	if node is Number:
+		node.toggle_focus(false)

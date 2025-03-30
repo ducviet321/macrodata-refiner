@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bh8ggr8lwnvew"]
+[gd_scene load_steps=31 format=3 uid="uid://bh8ggr8lwnvew"]
 
 [ext_resource type="Texture2D" uid="uid://cbobjlafk0ho0" path="res://Assests/background.png" id="1_n4psk"]
 [ext_resource type="Script" uid="uid://mgn0b7nq0tid" path="res://gameplay.gd" id="1_smepj"]
@@ -47,6 +47,12 @@ LineEdit/colors/font_color = Color(0.521569, 0.941176, 1, 1)
 LineEdit/constants/caret_width = 30
 LineEdit/styles/focus = SubResource("StyleBoxEmpty_e1x85")
 LineEdit/styles/normal = SubResource("StyleBoxEmpty_cjfk0")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eod45"]
+radius = 41.0352
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nwk8b"]
+radius = 146.731
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tyrfw"]
 atlas = ExtResource("6_3n40r")
@@ -463,6 +469,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Root" type="Control" parent="UI"]
 layout_mode = 1
@@ -471,6 +478,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 metadata/_edit_lock_ = true
 
 [node name="Background Container" type="Control" parent="UI/Root"]
@@ -480,6 +488,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Background" type="TextureRect" parent="UI/Root/Background Container"]
 layout_mode = 1
@@ -488,6 +497,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("1_n4psk")
 expand_mode = 1
 
@@ -511,6 +521,7 @@ anchor_right = 0.586979
 anchor_bottom = 0.4
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = SubResource("AtlasTexture_0m7cd")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
@@ -525,6 +536,7 @@ anchor_right = 0.646875
 anchor_bottom = 0.4
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = SubResource("AtlasTexture_1qy1k")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
@@ -539,6 +551,7 @@ anchor_right = 0.702604
 anchor_bottom = 0.51875
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = SubResource("AtlasTexture_fbudy")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
@@ -669,6 +682,8 @@ unique_name_in_owner = true
 position = Vector2(960, 459)
 
 [node name="Number" parent="UI/Gameplay/Control/SubViewportContainer/SubViewport/NumberContainer" instance=ExtResource("6_eod45")]
+process_mode = 4
+visible = false
 
 [node name="Camera2D" type="Camera2D" parent="UI/Gameplay/Control/SubViewportContainer/SubViewport"]
 unique_name_in_owner = true
@@ -676,6 +691,23 @@ position = Vector2(960, 459)
 limit_smoothed = true
 position_smoothing_enabled = true
 editor_draw_limits = true
+
+[node name="MouseContainer" type="Node2D" parent="UI/Gameplay/Control/SubViewportContainer/SubViewport"]
+position = Vector2(521.22, 279.936)
+
+[node name="MouseArea2D" type="Area2D" parent="UI/Gameplay/Control/SubViewportContainer/SubViewport/MouseContainer"]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Gameplay/Control/SubViewportContainer/SubViewport/MouseContainer/MouseArea2D"]
+shape = SubResource("CircleShape2D_eod45")
+debug_color = Color(0.125385, 0.617157, 0.550231, 0.42)
+
+[node name="MouseFocusArea2D" type="Area2D" parent="UI/Gameplay/Control/SubViewportContainer/SubViewport/MouseContainer"]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Gameplay/Control/SubViewportContainer/SubViewport/MouseContainer/MouseFocusArea2D"]
+shape = SubResource("CircleShape2D_nwk8b")
+debug_color = Color(0.125385, 0.617157, 0.550231, 0.42)
 
 [node name="UI" type="Control" parent="UI/Gameplay"]
 layout_mode = 1
@@ -969,7 +1001,7 @@ layout_mode = 2
 [node name="Box5" parent="UI/Gameplay/UI/Bottom/BoxContainer" instance=ExtResource("8_tyrfw")]
 layout_mode = 2
 
-[node name="LabelTimeleft" type="Label" parent="UI/Gameplay/UI/Bottom"]
+[node name="LabelMiddle" type="Label" parent="UI/Gameplay/UI/Bottom"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -1044,6 +1076,10 @@ mouse_filter = 2
 metadata/_edit_lock_ = true
 
 [connection signal="text_submitted" from="UI/Root/Label 85f0ff/InputName" to="." method="_on_input_name_text_submitted"]
+[connection signal="area_entered" from="UI/Gameplay/Control/SubViewportContainer/SubViewport/MouseContainer/MouseArea2D" to="." method="_on_mouse_area_2d_area_entered"]
+[connection signal="area_exited" from="UI/Gameplay/Control/SubViewportContainer/SubViewport/MouseContainer/MouseArea2D" to="." method="_on_mouse_area_2d_area_exited"]
+[connection signal="area_entered" from="UI/Gameplay/Control/SubViewportContainer/SubViewport/MouseContainer/MouseFocusArea2D" to="." method="_on_mouse_focus_area_2d_area_entered"]
+[connection signal="area_exited" from="UI/Gameplay/Control/SubViewportContainer/SubViewport/MouseContainer/MouseFocusArea2D" to="." method="_on_mouse_focus_area_2d_area_exited"]
 
 [editable path="UI/Gameplay/UI/Bottom/BoxContainer/Box"]
 [editable path="UI/Gameplay/UI/Bottom/BoxContainer/Box/Container/Opening/Score Container/Tempers/BoxScoreContainer/BoxScoreWO"]

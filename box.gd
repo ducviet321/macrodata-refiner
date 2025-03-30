@@ -5,6 +5,8 @@ class_name Box extends VBoxContainer
 @onready var box_score_container: VBoxContainer = $"Container/Opening/Score Container/Tempers/BoxScoreContainer"
 @onready var box_progress: ProgressBar = $Control/BoxProgress
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var button: Button = $Container/Button
+@onready var color_rect: ColorRect = $Container/ColorRect
 
 var box_scores: Dictionary[Gameplay.SCORES, BoxScore] = {}
 var tween_progress: Tween
@@ -76,4 +78,9 @@ func _on_box_progress_value_changed(value: float) -> void:
 	label_percentage.text = "%d%%" % (box_progress.value / box_progress.max_value * 100.0)
 
 func _on_button_pressed() -> void:
+	var tween = create_tween()
+	tween.tween_property(color_rect, "modulate:a", 0.0, 0.3).from(0.5)
+	if Gameplay.instance: Gameplay.instance.submit_score(self)
+
+func _on_button_debug_pressed() -> void:
 	add_score(randi() % 4, randf() * 100)

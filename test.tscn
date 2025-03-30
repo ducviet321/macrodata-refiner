@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dqjrjfirokmvq"]
+[gd_scene load_steps=4 format=3 uid="uid://dqjrjfirokmvq"]
 
 [ext_resource type="Script" uid="uid://dv6w4n0ry43j" path="res://test.gd" id="1_37kl0"]
+[ext_resource type="PackedScene" uid="uid://byo5aotfqg03l" path="res://number.tscn" id="2_8uh7m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_37kl0"]
+size = Vector2(220.552, 203.924)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -24,5 +28,17 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
+[node name="Area2D" type="Area2D" parent="ColorRect"]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ColorRect/Area2D"]
+position = Vector2(294.766, -132.345)
+shape = SubResource("RectangleShape2D_37kl0")
+
+[node name="Number" parent="ColorRect" instance=ExtResource("2_8uh7m")]
+position = Vector2(353.496, -64.2991)
+
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="area_entered" from="ColorRect/Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="ColorRect/Area2D" to="." method="_on_area_2d_area_exited"]

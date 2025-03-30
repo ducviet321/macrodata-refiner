@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bihfbbiwyykfh"]
+[gd_scene load_steps=16 format=3 uid="uid://bihfbbiwyykfh"]
 
 [ext_resource type="Script" uid="uid://cqlaabxbj3i3k" path="res://box.gd" id="1_bqn3j"]
 [ext_resource type="Theme" uid="uid://dplwn4m0n2xu3" path="res://Assests/theme.tres" id="2_3n43a"]
@@ -11,6 +11,16 @@ load_path = "res://.godot/imported/spritesheet.png-a1c390f16a2e861eaae846923967e
 [sub_resource type="AtlasTexture" id="AtlasTexture_eod45"]
 atlas = SubResource("CompressedTexture2D_bqn3j")
 region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3n43a"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3d203"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wj1a8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jjbh2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_amiuo"]
 
 [sub_resource type="Animation" id="Animation_jjbh2"]
 length = 0.001
@@ -49,6 +59,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [1.5708]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Container/ColorRect:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_3n43a"]
@@ -92,10 +114,27 @@ tracks/2/keys = {
 "values": [1.5708, -0.523599]
 }
 
+[sub_resource type="Animation" id="Animation_amiuo"]
+resource_name = "tap"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Container/ColorRect:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1.93187, 1),
+"update": 0,
+"values": [Color(0.521569, 0.941176, 1, 0.45098), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jjbh2"]
 _data = {
 &"RESET": SubResource("Animation_jjbh2"),
-&"open": SubResource("Animation_3n43a")
+&"open": SubResource("Animation_3n43a"),
+&"tap": SubResource("Animation_amiuo")
 }
 
 [node name="Box" type="VBoxContainer"]
@@ -197,6 +236,7 @@ theme_override_constants/separation = 15
 layout_mode = 2
 
 [node name="BoxScoreFC" parent="Container/Opening/Score Container/Tempers/BoxScoreContainer" instance=ExtResource("2_jjbh2")]
+modulate = Color(0.919115, 0.938408, 0.635672, 1)
 layout_mode = 2
 score_type = 1
 
@@ -238,6 +278,17 @@ offset_bottom = -41.9396
 rotation = 1.5708
 pivot_offset = Vector2(3.61316, 99.6739)
 
+[node name="ColorRect" type="ColorRect" parent="Container"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+offset_top = 3.0
+offset_right = 198.0
+offset_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(3.61316, 99.6739)
+color = Color(0.521569, 0.941176, 1, 1)
+
 [node name="MarginContainer" type="MarginContainer" parent="Container"]
 layout_mode = 2
 anchor_right = 1.0
@@ -278,6 +329,17 @@ patch_margin_top = 2
 patch_margin_right = 2
 patch_margin_bottom = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="Container"]
+layout_mode = 2
+offset_right = 200.0
+offset_bottom = 57.0
+mouse_filter = 1
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3n43a")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_3d203")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_wj1a8")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jjbh2")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_amiuo")
 
 [node name="Control" type="Control" parent="."]
 modulate = Color(0.521569, 0.941176, 1, 1)
@@ -337,7 +399,7 @@ theme_override_font_sizes/font_size = 30
 text = "100%"
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="Control"]
+[node name="ButtonDebug" type="Button" parent="Control"]
 visible = false
 layout_mode = 0
 offset_left = 257.0
@@ -354,5 +416,6 @@ autoplay = "RESET"
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="Container/Button" to="." method="_on_button_pressed"]
 [connection signal="value_changed" from="Control/BoxProgress" to="." method="_on_box_progress_value_changed"]
-[connection signal="pressed" from="Control/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Control/ButtonDebug" to="." method="_on_button_debug_pressed"]

@@ -6,17 +6,10 @@ class_name BoxScore extends HBoxContainer
 
 var tween_progress: Tween
 var current_score: float = 0.0
-
-const SCORE_TO_COLOR: Dictionary[Gameplay.SCORES, Color] = {
-	Gameplay.SCORES.WO: "#ccffde",
-	Gameplay.SCORES.FC: "#e6edc7",
-	Gameplay.SCORES.DR: "#f0f8ff",
-	Gameplay.SCORES.MA: "#8accff",
-}
 		
 func _ready() -> void:
 	label.text = Gameplay.SCORES.keys()[score_type]
-	modulate = SCORE_TO_COLOR[score_type]
+	modulate = Gameplay.SCORE_TO_COLOR[score_type]
 	
 func reset(should_animate: bool = true):
 	if should_animate:

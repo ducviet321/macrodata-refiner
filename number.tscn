@@ -1,26 +1,130 @@
-[gd_scene load_steps=5 format=3 uid="uid://byo5aotfqg03l"]
+[gd_scene load_steps=8 format=3 uid="uid://byo5aotfqg03l"]
 
+[ext_resource type="Script" uid="uid://c4sorfvv0w5t1" path="res://number.gd" id="1_4ajyc"]
 [ext_resource type="Theme" uid="uid://dplwn4m0n2xu3" path="res://Assests/theme.tres" id="1_r3wqd"]
 
 [sub_resource type="Animation" id="Animation_r3wqd"]
 resource_name = "move0"
-length = 4.0
+length = 10.0
+loop_mode = 2
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3, 7, 10),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-25, -25), Vector2(-43.6603, -41.9639), Vector2(-47.0531, -3.28619), Vector2(-13.4646, -29.0713)]
+}
+
+[sub_resource type="Animation" id="Animation_4ajyc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-25, -25)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.3, 0.3)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7y20y"]
+resource_name = "show"
+length = 2.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-25, -25)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.3, 0.3), Vector2(1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4ajyc"]
+resource_local_to_scene = true
 _data = {
-&"move0": SubResource("Animation_r3wqd")
+&"RESET": SubResource("Animation_4ajyc"),
+&"move0": SubResource("Animation_r3wqd"),
+&"show": SubResource("Animation_7y20y")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tyrfw"]
 size = Vector2(43.6748, 46.9563)
 
 [node name="Number" type="Node2D"]
+position = Vector2(946.55, 579.982)
+script = ExtResource("1_4ajyc")
 
-[node name="LabelId" type="Label" parent="."]
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="LabelId" type="Label" parent="Node2D"]
+modulate = Color(1, 1, 1, 0)
 offset_left = -25.0
 offset_top = -25.0
 offset_right = 25.0
 offset_bottom = 25.0
+scale = Vector2(0.3, 0.3)
 pivot_offset = Vector2(25, 25)
 size_flags_horizontal = 6
 size_flags_vertical = 6
@@ -31,13 +135,13 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../LabelId")
+root_node = NodePath("../Node2D/LabelId")
 libraries = {
 &"": SubResource("AnimationLibrary_4ajyc")
 }
+next/RESET = &"move0"
 
 [node name="Area2D" type="Area2D" parent="."]
-process_mode = 4
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]

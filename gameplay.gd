@@ -11,6 +11,10 @@ class_name Gameplay extends CanvasLayer
 @onready var mouse_container: Node2D = $UI/Gameplay/Control/SubViewportContainer/SubViewport/MouseContainer
 @onready var label_left: Label = $UI/Gameplay/UI/Bottom/LabelLeft
 @onready var label_middle: Label = $UI/Gameplay/UI/Bottom/LabelMiddle
+@onready var label_complete_percentage: Label = %LabelCompletePercentage
+@onready var label_end_score: Label = $"UI/100/100 Container/LabelEndScore"
+@onready var label_85f_0_ff: Label = $"UI/Root/Label 85f0ff"
+
 
 """​The Four Tempers introduced by Lumon Industries' founder, Kier Eagan:
 
@@ -25,6 +29,7 @@ const NUMBER = preload("res://number.tscn")
 # const NUMBER_COLLUMN_COUNT: int = 80
 const NUMBER_ROW_COUNT: int = 20
 const NUMBER_COLLUMN_COUNT: int = 48
+const NUMBER_SPACING := 120.0
 const MIN_ZOOM: float = 0.4
 const MAX_ZOOM: float = 1.0
 
@@ -35,12 +40,25 @@ const GRID_SPACING := 120.0
 const VISIBILITY_MARGIN_H := 100.0    # Horizontal margin
 const VISIBILITY_MARGIN_TOP := 100.0  # Top margin (larger for UI elements)
 const VISIBILITY_MARGIN_BOTTOM := 400.0  # Bottom margin
-const SCORE_TO_COLOR: Dictionary[Gameplay.SCORES, Color] = {
-	Gameplay.SCORES.WO: "#ccffde",
-	Gameplay.SCORES.FC: "#eaefa2",
-	Gameplay.SCORES.DR: "#f0f8ff",
-	Gameplay.SCORES.MA: "#8accff",
+const SCORE_TO_COLOR: Dictionary[SCORES, Color] = {
+	SCORES.WO: "#ccffde",
+	SCORES.FC: "#eaefa2",
+	SCORES.DR: "#f0f8ff",
+	SCORES.MA: "#8accff",
 }
+
+const ending_quotes = [
+	"%s, efficiency acknowledged\nQuota fulfilled in %02d:%02d\nPeak refinement: %d",
+	"%s, your efforts have been recorded\nQuota achieved in %02d:%02d\nHighest refinement: %d",
+	"%s, a suitable performance\nQuota met within %02d:%02d\nHighest refinement: %d",
+	"%s, refinement success\nTime spent: %02d:%02d\nHighest refinement: %d",
+	"%s, an acceptable outcome\nQuota reached in %02d:%02d\nHighest refinement: %d",
+	"%s, the numbers align\nQuota achieved within %02d:%02d\nHighest refinement: %d",
+	"%s, productivity noted\nQuota reached in %02d:%02d\nHighest refinement: %d",
+	"%s, your work is appreciated\nQuota secured in %02d:%02d\nHighest refinement: %d",
+	"%s, order maintained\nQuota reached in %02d:%02d\nHighest refinement: %d",
+	"%s, precision observed\nQuota secured within %02d:%02d\nHighest refinement: %d"
+]
 
 enum SCORES {
 	WO,
@@ -66,12 +84,16 @@ var current_score: int = 0
 var is_selecting: bool = false
 var is_unselecting_mode: bool = false
 var score_tween: Tween
+var total_completion: float = 0.0
 
 # Add these variables to store calculation results
 var current_dominant_type: SCORES
 var current_dominant_sum: int
 var current_other_sum: int
 var current_dominant_count: int
+
+var start_time: int = 0
+var highest_hit_score: float = 0.0
 
 func _ready() -> void:
 	instance = self
@@ -81,12 +103,10 @@ func _ready() -> void:
 	for child in box_container.get_children():
 		if child is Box:
 			boxes.append(child)
+			child.on_box_progress_changed.connect(_on_box_progress_changed)
 			
-	# TODO REMOVE ME
-	spawnNumbers()
-	start()
-
-	print("get_viewport().get_visible_rect().size", get_viewport().get_visible_rect().size)
+	#start() # TODO REMOVE ME
+	#game_over()
 	
 func _process(delta: float) -> void:
 	if is_game_started:
@@ -107,7 +127,10 @@ func submit_score(box: Box):
 	if selected_numbers.is_empty():
 		return
 		
-	var final_score = (current_dominant_sum - current_other_sum) * current_dominant_count
+	var final_score:float = (current_dominant_sum - current_other_sum) * current_dominant_count / 10.0
+	
+	# Track highest score
+	highest_hit_score = max(highest_hit_score, final_score)
 	
 	# Add score to box
 	box.add_score(current_dominant_type, final_score)
@@ -122,9 +145,8 @@ func submit_score(box: Box):
 	var tween = create_tween()
 	tween.set_parallel()
 	tween.tween_method(func(value: float):
-		label_middle.text = "+" + str(int(value))
+		label_middle.text = ("+" if value >= 0 else "") +  "%d" % value
 	, 0, final_score, 0.5).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
-
 
 func handle_drag():
 	var current_mouse_pos = get_viewport().get_mouse_position()
@@ -169,7 +191,9 @@ func hide_outside_numbers():
 	
 	for row in number_grid:
 		for number: Number in row:
-			if camera_rect.has_point(number.position):
+			if number.is_used: 
+				continue
+			elif camera_rect.has_point(number.position):
 				number.process_mode = Node.PROCESS_MODE_INHERIT
 				number.visible = true
 			else:
@@ -186,34 +210,48 @@ func start(is_restart: bool = true):
 		DR = White
 		MA = Blue
 	"""
+	spawn_numbers()
+
 	if is_restart:
 		for box: Box in boxes:
 			box.reset()
-	
+
+	selected_numbers = []
+	highest_hit_score = 0.0
+	start_time = Time.get_ticks_msec()
+	update_score_label()
 	is_game_started = true
-	
-func spawnNumbers(should_clear: bool = true):
-	const spacing := 120.0
-	
-	for row in range(NUMBER_COLLUMN_COUNT):
-		var number_row: Array = []
-		for column in range(NUMBER_ROW_COUNT):
-			var number: Number = NUMBER.instantiate()
-			number.score_type = randi_range(0, SCORES.size() - 1)
-			number.grid_x = row
-			number.grid_y = column
-	
-			if player_name == "vit": # Cheat mode, show colors
-				number.modulate = SCORE_TO_COLOR[number.score_type]
-				
-			number.global_position = Vector2(
-				row * spacing, 
-				column * spacing
-				)
-			number_container.add_child(number)
-			number_row.append(number)
+
+func spawn_numbers():
+	if number_grid: # Restart Game, new set of numbers
+		for row_idx in range(number_grid.size()):
+			for col_idx in range(number_grid[row_idx].size()):
+				var number: Number = number_grid[row_idx][col_idx]
+				number.score_type = randi_range(0, SCORES.size() - 1)
+				if player_name == "vit": # Cheat mode, show colors
+					number.modulate = SCORE_TO_COLOR[number.score_type]
+				number.reset_state() # Reset the number's state
+	else: # Spawn new nodes
+		for row in range(NUMBER_COLLUMN_COUNT):
+			var number_row: Array = []
+			for column in range(NUMBER_ROW_COUNT):
+				var number: Number = NUMBER.instantiate()
+				number.score_type = randi_range(0, SCORES.size() - 1)
+				number.grid_x = row
+				number.grid_y = column
 		
-		number_grid.append(number_row)
+				if player_name == "vit": # Cheat mode, show colors
+					number.modulate = SCORE_TO_COLOR[number.score_type]
+					
+				number.global_position = Vector2(
+					row * NUMBER_SPACING, 
+					column * NUMBER_SPACING
+					)
+				number_container.add_child(number)
+				number_row.append(number)
+			
+			number_grid.append(number_row)
+
 
 	# Count same score type numbers in 8 directions around each number
 	for row_idx in range(number_grid.size()):
@@ -247,14 +285,14 @@ func spawnNumbers(should_clear: bool = true):
 	camera_2d.limit_bottom = number_grid[-1][-1].position.y - 300.0
 			
 func _on_input_name_text_submitted(new_text: String) -> void:
-	if is_game_started: return
-	
 	if len(new_text) < 3:
 		print("New too short")
 		return
 		
 	label_name.text = new_text
 	player_name = new_text
+	label_85f_0_ff.visible = false
+	animation_player.play(&"show_game")
 	start()
 	
 func toggle_number_selection(number: Number) -> void:
@@ -341,7 +379,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed(&"mouse_left"):
 		is_mouse_pressed = true
 		is_selecting = true
-		if selected_number:
+		if selected_number and not selected_number.is_used:
 			# Determine if we're in selecting or unselecting mode based on first number
 			is_unselecting_mode = selected_number in selected_numbers
 			
@@ -420,3 +458,35 @@ func _on_mouse_focus_area_2d_area_exited(area: Area2D) -> void:
 	var node = area.get_parent()
 	if node is Number:
 		node.toggle_focus(false)
+
+func _on_box_progress_changed(box: Box, percentage: float) -> void:
+	# Calculate total completion percentage across all boxes
+	total_completion = 0.0
+	for b: Box in boxes:
+		total_completion += b.box_progress.value / b.box_progress.max_value
+	
+	total_completion /= boxes.size()
+	
+	label_complete_percentage.text = "%d%% Complete" % (total_completion * 100.0)
+	
+	if total_completion >= 1.0:
+		game_over()
+		
+func game_over():
+	print("Game completed!")
+	# Calculate time spent
+	var elapsed_time = (Time.get_ticks_msec() - start_time) / 1000.0  # Convert to seconds
+	var minutes = int(elapsed_time / 60)
+	var seconds = int(elapsed_time) % 60
+	
+	# Choose a random ending quote
+	var quote_index = randi() % ending_quotes.size()
+	label_end_score.text = ending_quotes[quote_index] % [player_name, minutes, seconds, int(highest_hit_score)]
+	
+	animation_player.play(&"game_over")
+	is_game_started = false
+
+func _on_button_restart_pressed() -> void:
+	animation_player.play_backwards(&"game_over")
+	animation_player.seek(1.0)
+	start()

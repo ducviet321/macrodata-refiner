@@ -333,7 +333,7 @@ metadata/_edit_use_anchors_ = true
 [node name="Button" type="Button" parent="Container"]
 layout_mode = 2
 offset_right = 200.0
-offset_bottom = 57.0
+offset_bottom = 117.0
 mouse_filter = 1
 theme_override_styles/focus = SubResource("StyleBoxEmpty_3n43a")
 theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_3d203")
@@ -355,6 +355,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
+mouse_filter = 2
 script = ExtResource("3_jjbh2")
 content_scale = 3.0
 
@@ -400,7 +401,6 @@ text = "100%"
 vertical_alignment = 1
 
 [node name="ButtonDebug" type="Button" parent="Control"]
-visible = false
 layout_mode = 0
 offset_left = 257.0
 offset_top = -106.0

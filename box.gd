@@ -74,8 +74,11 @@ func _on_mouse_exited() -> void:
 	animation_player.pause()
 	animation_player.play_backwards(&"open")
 
+signal on_box_progress_changed(box: Box, percentage: float)
+
 func _on_box_progress_value_changed(value: float) -> void:
 	label_percentage.text = "%d%%" % (box_progress.value / box_progress.max_value * 100.0)
+	emit_signal("on_box_progress_changed", self, box_progress.value / box_progress.max_value)
 
 func _on_button_pressed() -> void:
 	var tween = create_tween()
@@ -83,4 +86,10 @@ func _on_button_pressed() -> void:
 	if Gameplay.instance: Gameplay.instance.submit_score(self)
 
 func _on_button_debug_pressed() -> void:
-	add_score(randi() % 4, randf() * 100)
+	#add_score(randi() % 4, randf() * 200)
+	add_score(0, 100.0)
+	add_score(1, 100.0)
+	add_score(2, 100.0)
+	add_score(3, 100.0)
+	
+	

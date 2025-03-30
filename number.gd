@@ -23,6 +23,7 @@ var focus_tween: Tween
 var is_active: bool = false
 var grid_x: int = -1
 var grid_y: int = -1
+var is_used: bool = false
 
 func _ready() -> void:
 	# fade_in() # TODO Remove
@@ -82,6 +83,9 @@ func _notification(what: int) -> void:
 				animation_player.play(&"move0")
 
 func fly_to_target(target_position: Vector2) -> void:
+	# Mark as used so it won't be selectable again
+	is_used = true
+	
 	# Create a visual clone for the animation
 	var clone = Node2D.new()
 	var label_clone = Label.new()
@@ -111,3 +115,19 @@ func fly_to_target(target_position: Vector2) -> void:
 	tween.chain().tween_callback(func():
 		clone.queue_free()
 	)
+
+func reset_state() -> void:
+	# Reset all animation and visual states
+	if tween and tween.is_running():
+		tween.kill()
+	
+	if focus_tween and focus_tween.is_running():
+		focus_tween.kill()
+		
+	# Reset visibility and active state
+	visible = true
+	is_used = false
+	is_active = false
+	label_id.scale = Vector2.ONE
+	label_id.modulate.a = 1.0
+	fade_in()

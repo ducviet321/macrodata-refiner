@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bh8ggr8lwnvew"]
+[gd_scene load_steps=41 format=3 uid="uid://bh8ggr8lwnvew"]
 
 [ext_resource type="Texture2D" uid="uid://cbobjlafk0ho0" path="res://Assests/background.png" id="1_n4psk"]
 [ext_resource type="Script" uid="uid://mgn0b7nq0tid" path="res://gameplay.gd" id="1_smepj"]
@@ -61,6 +61,25 @@ region = Rect2(17, 0, 9, 4)
 [sub_resource type="AtlasTexture" id="AtlasTexture_45aep"]
 atlas = ExtResource("6_3n40r")
 region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eod45"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nwk8b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x2ust"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7y1a3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eglai"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m1ld8"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_eod45"]
+load_path = "res://.godot/imported/spritesheet.png-a1c390f16a2e861eaae846923967ec5f.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nwk8b"]
+atlas = SubResource("CompressedTexture2D_eod45")
+region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="Animation" id="Animation_cbffv"]
 length = 0.001
@@ -227,6 +246,42 @@ tracks/13/path = NodePath("Label 85f0ff:modulate")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("../100/100 Container:scale")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("../100/100 Container/LabelEndScore:modulate")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("../Gameplay:modulate")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -451,12 +506,95 @@ tracks/14/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("../100/100 Container:scale")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("../Gameplay:modulate")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_eod45"]
+resource_name = "game_over"
+length = 3.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../100/100 Container:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../100/100 Container/LabelEndScore:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_nwk8b"]
+resource_name = "show_game"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../100/100 Container:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Gameplay:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cbffv"]
 _data = {
 &"RESET": SubResource("Animation_cbffv"),
+&"game_over": SubResource("Animation_eod45"),
 &"hide": SubResource("Animation_fbudy"),
-&"intro": SubResource("Animation_0m7cd")
+&"intro": SubResource("Animation_0m7cd"),
+&"show_game": SubResource("Animation_nwk8b")
 }
 
 [node name="Gameplay" type="CanvasLayer"]
@@ -645,6 +783,7 @@ visible_ratio = 0.0
 metadata/_edit_use_anchors_ = true
 
 [node name="Gameplay" type="Control" parent="UI"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1030,11 +1169,52 @@ offset_right = -1172.58
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("2_ej4tk")
-theme_override_font_sizes/font_size = 30
-text = "[Enter] Auto-sort"
+theme_override_font_sizes/font_size = 20
+text = "Hold mouse [Left] to select   [Right] to move"
 vertical_alignment = 1
 
+[node name="ButtonRestart" type="Button" parent="UI/Gameplay/UI/Bottom"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.901967
+anchor_top = 0.745132
+anchor_right = 0.99155
+anchor_bottom = 0.958175
+theme_override_colors/font_color = Color(0.521569, 0.941176, 1, 1)
+theme_override_fonts/font = ExtResource("6_1qy1k")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxEmpty_eod45")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_nwk8b")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_x2ust")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7y1a3")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_eglai")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_m1ld8")
+text = "RESTART"
+metadata/_edit_use_anchors_ = true
+
+[node name="Container" type="Container" parent="UI/Gameplay/UI/Bottom/ButtonRestart"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_45aep")
+metadata/_edit_use_anchors_ = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/Gameplay/UI/Bottom/ButtonRestart/Container"]
+modulate = Color(0.509804, 0.901961, 0.976471, 1)
+layout_mode = 2
+texture = SubResource("AtlasTexture_nwk8b")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+metadata/_edit_use_anchors_ = true
+
 [node name="LabelRight" type="Label" parent="UI/Gameplay/UI/Bottom"]
+visible = false
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -1047,10 +1227,161 @@ grow_horizontal = 2
 grow_vertical = 0
 pivot_offset = Vector2(362.657, 33.1563)
 theme = ExtResource("2_ej4tk")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 20
 text = " [R] Restart"
 horizontal_alignment = 2
 vertical_alignment = 1
+
+[node name="100" type="Control" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="100 Container" type="Control" parent="UI/100"]
+anchors_preset = 0
+anchor_left = 0.158333
+anchor_top = 0.282813
+anchor_right = 0.846875
+anchor_bottom = 0.725
+pivot_offset = Vector2(661, 283)
+metadata/_edit_use_anchors_ = true
+
+[node name="Background" type="ColorRect" parent="UI/100/100 Container"]
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -881.333
+offset_bottom = -377.333
+scale = Vector2(3, 3)
+color = Color(0.0117647, 0.145098, 0.262745, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Container" type="Container" parent="UI/100/100 Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_45aep")
+content_scale = 3.0
+metadata/_edit_use_anchors_ = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/100/100 Container/Container"]
+modulate = Color(0.509804, 0.901961, 0.976471, 1)
+layout_mode = 2
+texture = SubResource("AtlasTexture_nwk8b")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Container2" type="Container" parent="UI/100/100 Container"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.00832073
+anchor_top = 0.0229682
+anchor_right = 0.990923
+anchor_bottom = 0.980565
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("6_45aep")
+content_scale = 3.0
+metadata/_edit_use_anchors_ = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/100/100 Container/Container2"]
+modulate = Color(0.509804, 0.901961, 0.976471, 1)
+layout_mode = 2
+texture = SubResource("AtlasTexture_nwk8b")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Label Startup" type="Label" parent="UI/100/100 Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_3n40r")
+theme_override_font_sizes/font_size = 295
+text = "100%"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelEndScore" type="Label" parent="UI/100/100 Container"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 105.0
+offset_top = 396.583
+offset_right = -105.0
+offset_bottom = -20.417
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_3n40r")
+theme_override_font_sizes/font_size = 25
+text = "Efficiency acknowledged
+Quota fulfilled in 00:00
+Peak refinement: %d"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="ButtonRestart" type="Button" parent="UI/100/100 Container"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.426626
+anchor_top = 1.0424
+anchor_right = 0.574887
+anchor_bottom = 1.13251
+offset_right = -6.10352e-05
+offset_bottom = -6.10352e-05
+theme_override_colors/font_color = Color(0.521569, 0.941176, 1, 1)
+theme_override_fonts/font = ExtResource("6_1qy1k")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_eod45")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_nwk8b")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_x2ust")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7y1a3")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_eglai")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_m1ld8")
+text = "RESTART"
+metadata/_edit_use_anchors_ = true
+
+[node name="Container" type="Container" parent="UI/100/100 Container/ButtonRestart"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_45aep")
+content_scale = 3.0
+metadata/_edit_use_anchors_ = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/100/100 Container/ButtonRestart/Container"]
+modulate = Color(0.509804, 0.901961, 0.976471, 1)
+layout_mode = 2
+texture = SubResource("AtlasTexture_nwk8b")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../UI/Root")
@@ -1080,6 +1411,8 @@ metadata/_edit_lock_ = true
 [connection signal="area_exited" from="UI/Gameplay/Control/SubViewportContainer/SubViewport/MouseContainer/MouseArea2D" to="." method="_on_mouse_area_2d_area_exited"]
 [connection signal="area_entered" from="UI/Gameplay/Control/SubViewportContainer/SubViewport/MouseContainer/MouseFocusArea2D" to="." method="_on_mouse_focus_area_2d_area_entered"]
 [connection signal="area_exited" from="UI/Gameplay/Control/SubViewportContainer/SubViewport/MouseContainer/MouseFocusArea2D" to="." method="_on_mouse_focus_area_2d_area_exited"]
+[connection signal="pressed" from="UI/Gameplay/UI/Bottom/ButtonRestart" to="." method="_on_button_restart_pressed"]
+[connection signal="pressed" from="UI/100/100 Container/ButtonRestart" to="." method="_on_button_restart_pressed"]
 
 [editable path="UI/Gameplay/UI/Bottom/BoxContainer/Box"]
 [editable path="UI/Gameplay/UI/Bottom/BoxContainer/Box/Container/Opening/Score Container/Tempers/BoxScoreContainer/BoxScoreWO"]

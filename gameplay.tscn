@@ -8,7 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://dpsn5brbcw1r2" path="res://Assests/beep_small.wav" id="6_0m7cd"]
 [ext_resource type="FontFile" uid="uid://d2vkaervcbbgh" path="res://Assests/FormaDJRText-ExtraBold-Testing.ttf" id="6_1qy1k"]
 [ext_resource type="Texture2D" uid="uid://d2s0yl675caem" path="res://Assests/spritesheet.png" id="6_3n40r"]
-[ext_resource type="Script" path="res://Assests/ui_scaler.gd" id="6_45aep"]
+[ext_resource type="Script" uid="uid://crv8sexl7relf" path="res://Assests/ui_scaler.gd" id="6_45aep"]
 [ext_resource type="AudioStream" uid="uid://cslgmil4c6t7i" path="res://Assests/beep_long.wav" id="7_1qy1k"]
 [ext_resource type="AudioStream" uid="uid://b7u47wl7w07nl" path="res://Assests/beep.wav" id="7_2ihbs"]
 [ext_resource type="PackedScene" uid="uid://bihfbbiwyykfh" path="res://box.tscn" id="8_tyrfw"]
@@ -549,8 +549,10 @@ anchor_left = 0.342417
 anchor_top = 0.276
 anchor_right = 0.657292
 anchor_bottom = 0.285156
-offset_left = 604.56
-offset_top = -0.280029
+offset_left = 604.559
+offset_top = -0.279999
+offset_right = -0.000610352
+offset_bottom = 0.000305176
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_2ihbs")
@@ -566,7 +568,9 @@ anchor_top = 0.454688
 anchor_right = 0.656771
 anchor_bottom = 0.464063
 offset_left = 593.0
-offset_right = -2.0
+offset_top = -0.000671387
+offset_right = -2.00037
+offset_bottom = -0.000610352
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_2ihbs")
@@ -632,6 +636,25 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Code View" type="Node2D" parent="UI/Gameplay"]
+position = Vector2(960, 640)
+
+[node name="Code Container" type="Node2D" parent="UI/Gameplay/Code View"]
+
+[node name="Code" type="Node2D" parent="UI/Gameplay/Code View/Code Container"]
+position = Vector2(12, 0)
+
+[node name="LabelId" type="Label" parent="UI/Gameplay/Code View/Code Container/Code"]
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme = ExtResource("2_ej4tk")
+theme_override_font_sizes/font_size = 40
+text = "7"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="UI/Gameplay/Code View"]
 
 [node name="UI" type="Control" parent="UI/Gameplay"]
 layout_mode = 1

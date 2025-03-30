@@ -4,6 +4,7 @@ class_name Box extends VBoxContainer
 @onready var label_id: Label = $Container/MarginContainer/LabelId
 @onready var box_score_container: VBoxContainer = $"Container/Opening/Score Container/Tempers/BoxScoreContainer"
 @onready var box_progress: ProgressBar = $Control/BoxProgress
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var box_scores: Dictionary[Gameplay.SCORES, BoxScore] = {}
 var tween_progress: Tween
@@ -64,10 +65,12 @@ func add_score(score_type: Gameplay.SCORES, value: float) -> float:
 	return addable_score
 
 func _on_mouse_entered() -> void:
-	print("_on_mouse_entered()")
+	animation_player.pause()
+	animation_player.play(&"open")
 
 func _on_mouse_exited() -> void:
-	print("_on_mouse_exited()")
+	animation_player.pause()
+	animation_player.play_backwards(&"open")
 
 func _on_box_progress_value_changed(value: float) -> void:
 	label_percentage.text = "%d%%" % (box_progress.value / box_progress.max_value * 100.0)

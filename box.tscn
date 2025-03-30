@@ -1,9 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bihfbbiwyykfh"]
+[gd_scene load_steps=10 format=3 uid="uid://bihfbbiwyykfh"]
 
 [ext_resource type="Script" uid="uid://cqlaabxbj3i3k" path="res://box.gd" id="1_bqn3j"]
 [ext_resource type="Theme" uid="uid://dplwn4m0n2xu3" path="res://Assests/theme.tres" id="2_3n43a"]
 [ext_resource type="PackedScene" uid="uid://c12jkcfetea6o" path="res://box_score.tscn" id="2_jjbh2"]
-[ext_resource type="Script" path="res://Assests/ui_scaler.gd" id="3_jjbh2"]
+[ext_resource type="Script" uid="uid://crv8sexl7relf" path="res://Assests/ui_scaler.gd" id="3_jjbh2"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bqn3j"]
 load_path = "res://.godot/imported/spritesheet.png-a1c390f16a2e861eaae846923967ec5f.ctex"
@@ -11,6 +11,92 @@ load_path = "res://.godot/imported/spritesheet.png-a1c390f16a2e861eaae846923967e
 [sub_resource type="AtlasTexture" id="AtlasTexture_eod45"]
 atlas = SubResource("CompressedTexture2D_bqn3j")
 region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="Animation" id="Animation_3n43a"]
+resource_name = "open"
+length = 1.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Container/Opening/Score Container:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.3, 0.9),
+"transitions": PackedFloat32Array(0.659754, 1),
+"update": 0,
+"values": [Vector2(-0.386993, 222.45), Vector2(-0.386993, 13.45)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Container/Right Door:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(0.4, 1),
+"update": 0,
+"values": [-1.5708, 0.523599]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Container/Left Door:rotation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(0.4, 1),
+"update": 0,
+"values": [1.5708, -0.523599]
+}
+
+[sub_resource type="Animation" id="Animation_jjbh2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Container/Opening/Score Container:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-0.386993, 222.45)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Container/Right Door:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5708]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Container/Left Door:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.5708]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jjbh2"]
+_data = {
+&"RESET": SubResource("Animation_jjbh2"),
+&"open": SubResource("Animation_3n43a")
+}
 
 [node name="Box" type="VBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
@@ -26,22 +112,28 @@ size_flags_vertical = 3
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Opening" type="Control" parent="Container"]
+[node name="Opening" type="ColorRect" parent="Container"]
+clip_children = 1
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -191.0
+offset_top = -278.0
+offset_bottom = -50.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 mouse_filter = 2
 
 [node name="Score Container" type="ColorRect" parent="Container/Opening"]
 layout_mode = 1
-anchors_preset = -1
-anchor_top = -0.11336
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -0.386993
+offset_top = 222.45
+offset_right = -0.386993
+offset_bottom = 222.45
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -52,8 +144,10 @@ modulate = Color(0.521569, 0.941176, 1, 1)
 layout_mode = 1
 anchors_preset = -1
 anchor_bottom = 0.972
-offset_right = 4.0
-offset_bottom = -16.084
+offset_left = -0.386993
+offset_top = 3.45001
+offset_right = 3.61301
+offset_bottom = 4.83401
 grow_horizontal = 2
 mouse_filter = 2
 
@@ -61,10 +155,13 @@ mouse_filter = 2
 modulate = Color(0.521569, 0.941176, 1, 1)
 layout_mode = 1
 anchors_preset = -1
-anchor_bottom = 0.972
-offset_left = 196.0
-offset_right = 200.0
-offset_bottom = -16.084
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -228.0
+offset_bottom = -5.0
 grow_horizontal = 2
 mouse_filter = 2
 
@@ -81,8 +178,9 @@ mouse_filter = 2
 [node name="Tempers" type="MarginContainer" parent="Container/Opening/Score Container"]
 layout_mode = 1
 anchors_preset = -1
+anchor_top = -0.0175439
 anchor_right = 1.0
-anchor_bottom = 0.823151
+anchor_bottom = 1.00439
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 8
@@ -110,35 +208,35 @@ score_type = 2
 layout_mode = 2
 score_type = 3
 
-[node name="Right Door" type="ColorRect" parent="Container/Opening"]
+[node name="Right Door" type="ColorRect" parent="Container"]
 modulate = Color(0.521569, 0.941176, 1, 1)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 1.0
-anchor_top = 0.793
-anchor_right = 1.0
-anchor_bottom = 0.793
-offset_left = -7.11099
-offset_top = -138.785
-offset_right = -1.11099
-offset_bottom = 1.21498
+anchor_left = 0.987
+anchor_top = 0.822
+anchor_right = 0.987
+anchor_bottom = 0.822
+offset_left = -3.49854
+offset_top = -141.975
+offset_right = 2.50146
+offset_bottom = -41.9753
 rotation = -1.5708
-pivot_offset = Vector2(2.42285, 137.645)
+pivot_offset = Vector2(2.44382, 99.5674)
 
-[node name="Left Door" type="ColorRect" parent="Container/Opening"]
+[node name="Left Door" type="ColorRect" parent="Container"]
 modulate = Color(0.521569, 0.941176, 1, 1)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 1.0
-anchor_top = 0.793
-anchor_right = 1.0
-anchor_bottom = 0.793
-offset_left = -199.079
-offset_top = -141.858
-offset_right = -193.079
-offset_bottom = -1.8575
+anchor_left = 0.019
+anchor_top = 0.823
+anchor_right = 0.019
+anchor_bottom = 0.823
+offset_left = -2.94011
+offset_top = -141.94
+offset_right = 3.05989
+offset_bottom = -41.9396
 rotation = 1.5708
-pivot_offset = Vector2(2.96899, 140.178)
+pivot_offset = Vector2(3.61316, 99.6739)
 
 [node name="MarginContainer" type="MarginContainer" parent="Container"]
 layout_mode = 2
@@ -247,6 +345,12 @@ offset_top = -106.0
 offset_right = 472.0
 offset_bottom = -45.0
 text = "Debug Add Score"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_jjbh2")
+}
+autoplay = "RESET"
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

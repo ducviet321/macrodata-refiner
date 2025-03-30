@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://byo5aotfqg03l"]
+
+[ext_resource type="Theme" uid="uid://dplwn4m0n2xu3" path="res://Assests/theme.tres" id="1_r3wqd"]
+
+[sub_resource type="Animation" id="Animation_r3wqd"]
+resource_name = "move0"
+length = 4.0
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4ajyc"]
+_data = {
+&"move0": SubResource("Animation_r3wqd")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tyrfw"]
+size = Vector2(43.6748, 46.9563)
+
+[node name="Number" type="Node2D"]
+
+[node name="LabelId" type="Label" parent="."]
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+pivot_offset = Vector2(25, 25)
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme = ExtResource("1_r3wqd")
+theme_override_font_sizes/font_size = 40
+text = "7"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../LabelId")
+libraries = {
+&"": SubResource("AnimationLibrary_4ajyc")
+}
+
+[node name="Area2D" type="Area2D" parent="."]
+process_mode = 4
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_tyrfw")

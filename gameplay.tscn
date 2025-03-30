@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bh8ggr8lwnvew"]
+[gd_scene load_steps=29 format=3 uid="uid://bh8ggr8lwnvew"]
 
 [ext_resource type="Texture2D" uid="uid://cbobjlafk0ho0" path="res://Assests/background.png" id="1_n4psk"]
 [ext_resource type="Script" uid="uid://mgn0b7nq0tid" path="res://gameplay.gd" id="1_smepj"]
@@ -8,7 +8,8 @@
 [ext_resource type="AudioStream" uid="uid://dpsn5brbcw1r2" path="res://Assests/beep_small.wav" id="6_0m7cd"]
 [ext_resource type="FontFile" uid="uid://d2vkaervcbbgh" path="res://Assests/FormaDJRText-ExtraBold-Testing.ttf" id="6_1qy1k"]
 [ext_resource type="Texture2D" uid="uid://d2s0yl675caem" path="res://Assests/spritesheet.png" id="6_3n40r"]
-[ext_resource type="Script" uid="uid://crv8sexl7relf" path="res://Assests/ui_scaler.gd" id="6_45aep"]
+[ext_resource type="Script" uid="uid://c8mu61a77l310" path="res://Assests/ui_scaler.gd" id="6_45aep"]
+[ext_resource type="PackedScene" uid="uid://byo5aotfqg03l" path="res://number.tscn" id="6_eod45"]
 [ext_resource type="AudioStream" uid="uid://cslgmil4c6t7i" path="res://Assests/beep_long.wav" id="7_1qy1k"]
 [ext_resource type="AudioStream" uid="uid://b7u47wl7w07nl" path="res://Assests/beep.wav" id="7_2ihbs"]
 [ext_resource type="PackedScene" uid="uid://bihfbbiwyykfh" path="res://box.tscn" id="8_tyrfw"]
@@ -498,6 +499,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Logo Icon" type="TextureRect" parent="UI/Root/Logo Container"]
 modulate = Color(0.696, 0.961, 1, 0)
@@ -636,25 +638,44 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
-[node name="Code View" type="Node2D" parent="UI/Gameplay"]
-position = Vector2(960, 640)
+[node name="Control" type="Control" parent="UI/Gameplay"]
+layout_mode = 2
+anchors_preset = 0
+anchor_top = 0.18125
+anchor_right = 1.0
+anchor_bottom = 0.820313
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
 
-[node name="Code Container" type="Node2D" parent="UI/Gameplay/Code View"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="UI/Gameplay/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
-[node name="Code" type="Node2D" parent="UI/Gameplay/Code View/Code Container"]
-position = Vector2(12, 0)
+[node name="SubViewport" type="SubViewport" parent="UI/Gameplay/Control/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1920, 818)
+render_target_update_mode = 4
 
-[node name="LabelId" type="Label" parent="UI/Gameplay/Code View/Code Container/Code"]
-size_flags_horizontal = 6
-size_flags_vertical = 6
-theme = ExtResource("2_ej4tk")
-theme_override_font_sizes/font_size = 40
-text = "7"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="NumberContainer" type="Node2D" parent="UI/Gameplay/Control/SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+position = Vector2(960, 459)
 
-[node name="Camera2D" type="Camera2D" parent="UI/Gameplay/Code View"]
+[node name="Number" parent="UI/Gameplay/Control/SubViewportContainer/SubViewport/NumberContainer" instance=ExtResource("6_eod45")]
+
+[node name="Camera2D" type="Camera2D" parent="UI/Gameplay/Control/SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+position = Vector2(960, 459)
+limit_smoothed = true
+position_smoothing_enabled = true
+editor_draw_limits = true
 
 [node name="UI" type="Control" parent="UI/Gameplay"]
 layout_mode = 1
@@ -663,6 +684,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_lock_ = true
 
 [node name="Top" type="ColorRect" parent="UI/Gameplay/UI"]
 modulate = Color(0.521569, 0.941176, 1, 1)
@@ -674,7 +697,7 @@ anchor_bottom = 1.0
 offset_bottom = -1048.0
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_lock_ = true
+mouse_filter = 2
 
 [node name="Background" type="TextureRect" parent="UI/Gameplay/UI/Top"]
 layout_mode = 1
@@ -682,6 +705,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 1278.0
 grow_horizontal = 2
+mouse_filter = 2
 texture = ExtResource("1_n4psk")
 expand_mode = 1
 
@@ -708,6 +732,7 @@ offset_top = -91.56
 offset_bottom = 91.44
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Logo Icon" type="TextureRect" parent="UI/Gameplay/UI/Top/Logo Container"]
 layout_mode = 1
@@ -861,6 +886,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="Background" type="TextureRect" parent="UI/Gameplay/UI/Bottom/Background Clipper"]
@@ -875,6 +901,7 @@ offset_right = 5.0
 offset_bottom = 0.459991
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("1_n4psk")
 expand_mode = 1
 
@@ -942,7 +969,7 @@ layout_mode = 2
 [node name="Box5" parent="UI/Gameplay/UI/Bottom/BoxContainer" instance=ExtResource("8_tyrfw")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/Gameplay/UI/Bottom"]
+[node name="LabelTimeleft" type="Label" parent="UI/Gameplay/UI/Bottom"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -959,37 +986,37 @@ text = "0xV1T500   :   0xNY0UN6"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="UI/Gameplay/UI/Bottom"]
+[node name="LabelLeft" type="Label" parent="UI/Gameplay/UI/Bottom"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 57.0604
+offset_left = 54.4187
 offset_top = -66.0
-offset_right = -1564.94
+offset_right = -1172.58
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("2_ej4tk")
 theme_override_font_sizes/font_size = 30
-text = "Timeleft 00:00"
+text = "[Enter] Auto-sort"
 vertical_alignment = 1
 
-[node name="LabelShortcut" type="Label" parent="UI/Gameplay/UI/Bottom"]
+[node name="LabelRight" type="Label" parent="UI/Gameplay/UI/Bottom"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1455.05
+offset_left = 1311.52
 offset_top = -66.0
-offset_right = -52.9504
+offset_right = -45.4781
 grow_horizontal = 2
 grow_vertical = 0
 pivot_offset = Vector2(362.657, 33.1563)
 theme = ExtResource("2_ej4tk")
 theme_override_font_sizes/font_size = 30
-text = "[Space] Refine         [R] Restart"
+text = " [R] Restart"
 horizontal_alignment = 2
 vertical_alignment = 1
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://dplwn4m0n2xu3" path="res://Assests/theme.tres" id="1_0k82o"]
 [ext_resource type="Script" uid="uid://dc6nj0bidgvuo" path="res://box_score.gd" id="1_wno7m"]
-[ext_resource type="Script" path="res://Assests/ui_scaler.gd" id="2_wno7m"]
+[ext_resource type="Script" uid="uid://c8mu61a77l310" path="res://Assests/ui_scaler.gd" id="2_wno7m"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bqn3j"]
 load_path = "res://.godot/imported/spritesheet.png-a1c390f16a2e861eaae846923967ec5f.ctex"

@@ -4,7 +4,6 @@ class_name Number extends Node2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var container: Node2D = $Node2D
 
-
 const SELECT_TRANSITION_DURATION = .4
 const FOCUS_SCALE := 1.5
 const FOCUS_DURATION := 0.3
@@ -124,7 +123,7 @@ func fly_to_target(box: Box) -> void:
 	tween.set_parallel().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(self, "modulate", Color.TRANSPARENT, 0.2) # Temporary solution because the clone position is wrong T_T
 	tween.tween_property(clone, "global_position", box.control.global_position, FLY_DURATION)
-	tween.parallel().tween_property(clone, "modulate", Color.TRANSPARENT, FLY_DURATION)
+	tween.tween_property(clone, "modulate", Color.TRANSPARENT, FLY_DURATION)
 	# tween.parallel().tween_interval(FLY_DURATION * 0.8)
 	# tween.parallel().tween_property(clone, "modulate", Color.TRANSPARENT, 0.2)
 	

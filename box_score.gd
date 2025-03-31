@@ -24,7 +24,7 @@ func add_score(value: float) -> float:
 	if progress_bar.value + addable_score > progress_bar.max_value:
 		addable_score = progress_bar.max_value - current_score
 		
-	current_score += addable_score
+	current_score  = max(current_score + addable_score, 0.0)
 	
 	if tween_progress and tween_progress.is_running():
 		tween_progress.stop()

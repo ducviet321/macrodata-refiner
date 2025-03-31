@@ -11,8 +11,10 @@ class_name Box extends VBoxContainer
 @onready var fly_target: Control = $Control/FlyContainer/FlyTarget
 @onready var control: Control = $Control
 
+const SORT = preload("res://Assests/sort.wav")
 var box_scores: Dictionary[Gameplay.SCORES, BoxScore] = {}
 var tween_progress: Tween
+
 
 var total_percentage: float:
 	get: 
@@ -86,7 +88,10 @@ func _on_box_progress_value_changed(value: float) -> void:
 func _on_button_pressed() -> void:
 	var tween = create_tween()
 	tween.tween_property(color_rect, "modulate:a", 0.0, 0.3).from(0.5)
-	if Gameplay.instance: Gameplay.instance.submit_score(self)
+	if Gameplay.instance: 
+		Gameplay.instance.submit_score(self)
+		Gameplay.instance.audio_stream_player.stream = SORT
+		Gameplay.instance.audio_stream_player.play()
 
 func _on_button_debug_pressed() -> void:
 	#add_score(randi() % 4, randf() * 200)

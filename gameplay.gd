@@ -24,6 +24,7 @@ DR (Dread) – Symbolizes fear, anxiety, and an impending sense of doom. These n
 MA (Malice) – Stands for anger, hostility, and aggression. Numbers in this category feel menacing or violent.
 """
 
+const WIN = preload("res://Assests/win.wav")
 const NUMBER = preload("res://number.tscn")
 #const NUMBER_ROW_COUNT: int = 5
 #const NUMBER_COLLUMN_COUNT: int = 5
@@ -95,10 +96,16 @@ var current_dominant_count: int
 var start_time: int = 0
 var highest_hit_score: float = 0.0
 
+var original_left_label_text: String = ""
+var label_tween: Tween
+
 func _ready() -> void:
 	instance = self
 	input_name.text = ""
 	input_name.grab_focus()
+	
+	# Store original label text
+	original_left_label_text = label_left.text
 	
 	for child in box_container.get_children():
 		if child is Box:
@@ -127,7 +134,7 @@ func submit_score(box: Box):
 	if selected_numbers.is_empty():
 		return
 		
-	var final_score:float = (current_dominant_sum - current_other_sum) * current_dominant_count
+	var final_score:float = current_dominant_sum - current_other_sum * current_dominant_count
 	
 	# Track highest score
 	highest_hit_score = max(highest_hit_score, final_score)
@@ -140,6 +147,7 @@ func submit_score(box: Box):
 		number.fly_to_target(box)
 	
 	selected_numbers.clear()
+	update_left_label()  # Reset the left label
 
 	# Animate label increase score
 	var tween = create_tween()
@@ -220,6 +228,7 @@ func start(is_restart: bool = true):
 	highest_hit_score = 0.0
 	start_time = Time.get_ticks_msec()
 	update_score_label()
+	update_left_label()
 	is_game_started = true
 
 func spawn_numbers():
@@ -292,7 +301,9 @@ func _on_input_name_text_submitted(new_text: String) -> void:
 	label_name.text = new_text
 	player_name = new_text
 	label_85f_0_ff.visible = false
-	animation_player.seek(12.0) # End intro
+	label_85f_0_ff.process_mode = Node.PROCESS_MODE_DISABLED
+	animation_player.seek(11.99) # End intro
+	animation_player.advance(0)
 	animation_player.play(&"show_game")
 	start()
 	
@@ -304,6 +315,7 @@ func toggle_number_selection(number: Number) -> void:
 		selected_numbers.erase(number)
 	
 	update_score_label()
+	update_left_label()
 
 func update_score_label():
 	if selected_numbers.is_empty():
@@ -359,9 +371,9 @@ func update_score_label():
 			label_middle.text = "%d×%d" % [current_dominant_sum, current_dominant_count]
 	else:
 		if current_dominant_count <= 1:
-			label_middle.text = "(%d - %d)" % [current_dominant_sum, current_other_sum]
+			label_middle.text = "%d - %d" % [current_dominant_sum, current_other_sum]
 		else:
-			label_middle.text = "(%d - %d) × %d" % [current_dominant_sum, current_other_sum, current_dominant_count]
+			label_middle.text = "%d - %d × %d" % [current_dominant_sum, current_other_sum, current_dominant_count]
 
 func is_adjacent(number1: Number, number2: Number) -> bool:
 	# Use stored grid coordinates instead of calculating
@@ -476,6 +488,9 @@ func _on_box_progress_changed(box: Box, percentage: float) -> void:
 func game_over():
 	print("Game completed!")
 	# Calculate time spent
+	audio_stream_player.stream = WIN
+	audio_stream_player.play()
+	
 	var elapsed_time = (Time.get_ticks_msec() - start_time) / 1000.0  # Convert to seconds
 	var minutes = int(elapsed_time / 60)
 	var seconds = int(elapsed_time) % 60
@@ -488,4 +503,23 @@ func game_over():
 	is_game_started = false
 
 func _on_button_restart_pressed() -> void:
+	animation_player.play(&"show_game")
 	start()
+
+func update_left_label() -> void:
+	var new_text = original_left_label_text if selected_numbers.is_empty() else "Click on a folder to sort"
+	
+	# If the text is already the same, don't tween
+	if label_left.text == new_text:
+		return
+		
+	# Cancel any running tween
+	if label_tween and label_tween.is_running():
+		label_tween.kill()
+	
+	label_tween = create_tween()
+	
+	# Fade out, change text, fade in
+	label_tween.tween_property(label_left, "modulate:a", 0.0, 0.3)
+	label_tween.tween_callback(func(): label_left.text = new_text)
+	label_tween.tween_property(label_left, "modulate:a", 1.0, 0.3)

@@ -15,6 +15,10 @@
 [ext_resource type="PackedScene" uid="uid://bihfbbiwyykfh" path="res://box.tscn" id="8_tyrfw"]
 [ext_resource type="AudioStream" uid="uid://2w47dm5qap1g" path="res://Assests/elevator.ogg" id="10_3n40r"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ihbs"]
+atlas = ExtResource("4_cbffv")
+region = Rect2(166, 35, 163, 10)
+
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cbffv"]
 load_path = "res://.godot/imported/logo.png-c3004843012acb25dfeabd09aefc836c.ctex"
 
@@ -29,10 +33,6 @@ region = Rect2(343, 34, 435, 71)
 [sub_resource type="AtlasTexture" id="AtlasTexture_fbudy"]
 atlas = ExtResource("4_cbffv")
 region = Rect2(125, 111, 604, 331)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2ihbs"]
-atlas = ExtResource("4_cbffv")
-region = Rect2(166, 35, 163, 10)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e1x85"]
 
@@ -134,7 +134,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Logo Container/Logo:modulate")
+tracks/4/path = NodePath("Logo Container/Control/Logo:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -146,163 +146,151 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Logo Container/Line:size")
+tracks/5/path = NodePath("Logo Container/Control/Logo Text:modulate")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 12)]
+"values": [Color(0.696, 0.961, 1, 0)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Logo Container/Line:position")
+tracks/6/path = NodePath("Logo Container/Control/Logo Icon:modulate")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1262, 353)]
+"values": [Color(0.696, 0.961, 1, 0)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Logo Container/Line2:size")
+tracks/7/path = NodePath("Logo Container/Control/Line2:modulate")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 12)]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Logo Container/Line2:position")
+tracks/8/path = NodePath("Logo Container/Control/Line:modulate")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1259, 582)]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Logo Container/Logo Text:modulate")
+tracks/9/path = NodePath("Label 85f0ff:modulate")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.696, 0.961, 1, 0)]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Logo Container/Logo Icon:modulate")
+tracks/10/path = NodePath("../100/100 Container:scale")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.696, 0.961, 1, 0)]
+"values": [Vector2(1, 1)]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("Logo Container/Line2:modulate")
+tracks/11/path = NodePath("../100/100 Container/LabelEndScore:modulate")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.696, 0.961, 1, 1)]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("Logo Container/Line:modulate")
+tracks/12/path = NodePath("../Gameplay:modulate")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.696, 0.961, 1, 1)]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("Label 85f0ff:modulate")
+tracks/13/path = NodePath("Logo Container:visible")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
+"update": 1,
+"values": [true]
 }
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("../100/100 Container:scale")
+tracks/14/path = NodePath("../100/100 Container/ButtonRestart:modulate")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("../100/100 Container/LabelEndScore:modulate")
+tracks/15/path = NodePath("Logo Container/Control/Line:offset_left")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [-447.669]
 }
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("../Gameplay:modulate")
+tracks/16/path = NodePath("Logo Container/Control/Line2:offset_left")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/17/type = "value"
-tracks/17/imported = false
-tracks/17/enabled = true
-tracks/17/path = NodePath("Logo Container:visible")
-tracks/17/interp = 1
-tracks/17/loop_wrap = true
-tracks/17/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"values": [-0.256256]
 }
 
 [sub_resource type="Animation" id="Animation_eod45"]
 resource_name = "game_over"
-length = 3.0
+length = 5.0
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -324,6 +312,18 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(2, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../100/100 Container/ButtonRestart:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(4, 5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -415,7 +415,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Logo Container/Logo:modulate")
+tracks/4/path = NodePath("Logo Container/Control/Logo:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -427,106 +427,58 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Logo Container/Line:size")
-tracks/5/interp = 2
+tracks/5/path = NodePath("Logo Container/Control/Logo Text:modulate")
+tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(5.4, 6.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 12), Vector2(604, 12)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Logo Container/Line:position")
-tracks/6/interp = 2
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(5.4, 6.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1262, 353), Vector2(658, 353)]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Logo Container/Line2:size")
-tracks/7/interp = 2
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(6, 6.9),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 12), Vector2(595, 12)]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("Logo Container/Line2:position")
-tracks/8/interp = 2
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(6, 6.9),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1259, 582), Vector2(666, 582)]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("Logo Container/Logo Text:modulate")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
 "times": PackedFloat32Array(6.9, 7.9, 9.7, 10.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(0.696, 0.961, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0.696, 0.961, 1, 0)]
 }
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Logo Container/Logo Icon:modulate")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Logo Container/Control/Logo Icon:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
 "times": PackedFloat32Array(6.9, 7.9, 10.2, 11.1),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(0.696, 0.961, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0.696, 0.961, 1, 0)]
 }
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Logo Container/Line2:modulate")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Logo Container/Control/Line2:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
 "times": PackedFloat32Array(9.7, 10.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(0.696, 0.961, 1, 0)]
 }
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Logo Container/Line:modulate")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Logo Container/Control/Line:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
 "times": PackedFloat32Array(9.7, 10.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(0.696, 0.961, 1, 0)]
 }
-tracks/13/type = "audio"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("../../AudioStreamPlayer2")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
+tracks/9/type = "audio"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../../AudioStreamPlayer2")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
@@ -534,42 +486,66 @@ tracks/13/keys = {
 }],
 "times": PackedFloat32Array(2.2)
 }
-tracks/13/use_blend = true
-tracks/14/type = "value"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("Label 85f0ff:modulate")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/keys = {
+tracks/9/use_blend = true
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Label 85f0ff:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
 "times": PackedFloat32Array(11.6, 12),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
-tracks/15/type = "value"
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/path = NodePath("../100/100 Container:scale")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/keys = {
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("../100/100 Container:scale")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(1e-05, 1e-05)]
 }
-tracks/16/type = "value"
-tracks/16/imported = false
-tracks/16/enabled = true
-tracks/16/path = NodePath("../Gameplay:modulate")
-tracks/16/interp = 1
-tracks/16/loop_wrap = true
-tracks/16/keys = {
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("../Gameplay:modulate")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Logo Container/Control/Line:offset_left")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(5.4, 6.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, -447.669]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Logo Container/Control/Line2:offset_left")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(6, 6.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [448.0, -0.256256]
 }
 
 [sub_resource type="Animation" id="Animation_nwk8b"]
@@ -666,14 +642,57 @@ expand_mode = 1
 [node name="Logo Container" type="Control" parent="UI/Root"]
 modulate = Color(0.694118, 0.960784, 1, 1)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.341667
+anchor_top = 0.194253
+anchor_right = 0.658333
+anchor_bottom = 0.510659
+offset_bottom = 6.10352e-05
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+metadata/_edit_use_anchors_ = true
 
-[node name="Logo Icon" type="TextureRect" parent="UI/Root/Logo Container"]
+[node name="Control" type="Control" parent="UI/Root/Logo Container"]
+layout_mode = 1
+anchor_left = -0.669408
+anchor_top = -0.452158
+anchor_right = 1.66941
+anchor_bottom = 1.88858
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Line" type="TextureRect" parent="UI/Root/Logo Container/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.657292
+anchor_top = 0.275
+anchor_right = 0.657292
+anchor_bottom = 0.285156
+offset_left = -447.669
+offset_right = 0.33075
+pivot_offset = Vector2(603.954, 6.10312)
+mouse_filter = 2
+texture = SubResource("AtlasTexture_2ihbs")
+expand_mode = 1
+
+[node name="Line2" type="TextureRect" parent="UI/Root/Logo Container/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.346875
+anchor_top = 0.454688
+anchor_right = 0.656771
+anchor_bottom = 0.464063
+offset_left = -0.256256
+offset_top = -0.0442505
+offset_right = -0.928284
+offset_bottom = 0.0682983
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_2ihbs")
+expand_mode = 1
+
+[node name="Logo Icon" type="TextureRect" parent="UI/Root/Logo Container/Control"]
 modulate = Color(0.696, 0.961, 1, 0)
 layout_mode = 1
 anchors_preset = -1
@@ -681,14 +700,14 @@ anchor_left = 0.535417
 anchor_top = 0.334375
 anchor_right = 0.586979
 anchor_bottom = 0.4
+offset_left = 6.10352e-05
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("AtlasTexture_0m7cd")
 expand_mode = 1
-metadata/_edit_use_anchors_ = true
 
-[node name="Logo Text" type="TextureRect" parent="UI/Root/Logo Container"]
+[node name="Logo Text" type="TextureRect" parent="UI/Root/Logo Container/Control"]
 modulate = Color(0.696, 0.961, 1, 0)
 layout_mode = 1
 anchors_preset = -1
@@ -701,9 +720,8 @@ grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("AtlasTexture_1qy1k")
 expand_mode = 1
-metadata/_edit_use_anchors_ = true
 
-[node name="Logo" type="TextureRect" parent="UI/Root/Logo Container"]
+[node name="Logo" type="TextureRect" parent="UI/Root/Logo Container/Control"]
 modulate = Color(0.696, 0.961, 1, 0)
 layout_mode = 1
 anchors_preset = -1
@@ -711,48 +729,12 @@ anchor_left = 0.297917
 anchor_top = 0.210938
 anchor_right = 0.702604
 anchor_bottom = 0.51875
+offset_top = 1.52588e-05
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("AtlasTexture_fbudy")
 expand_mode = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="Line" type="TextureRect" parent="UI/Root/Logo Container"]
-modulate = Color(0.696, 0.961, 1, 1)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.342417
-anchor_top = 0.276
-anchor_right = 0.657292
-anchor_bottom = 0.285156
-offset_left = 604.559
-offset_top = -0.279999
-offset_right = -0.000610352
-offset_bottom = 0.000305176
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("AtlasTexture_2ihbs")
-expand_mode = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="Line2" type="TextureRect" parent="UI/Root/Logo Container"]
-modulate = Color(0.696, 0.961, 1, 1)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.346875
-anchor_top = 0.454688
-anchor_right = 0.656771
-anchor_bottom = 0.464063
-offset_left = 593.0
-offset_top = -0.000671387
-offset_right = -2.00037
-offset_bottom = -0.000610352
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("AtlasTexture_2ihbs")
-expand_mode = 1
-metadata/_edit_use_anchors_ = true
 
 [node name="Label 85f0ff" type="Label" parent="UI/Root"]
 modulate = Color(1, 1, 1, 0)
@@ -1264,6 +1246,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+metadata/_edit_lock_ = true
 
 [node name="100 Container" type="Control" parent="UI/100"]
 anchors_preset = 0
@@ -1384,6 +1367,18 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_eglai")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_m1ld8")
 text = "RESTART"
 metadata/_edit_use_anchors_ = true
+
+[node name="Background" type="ColorRect" parent="UI/100/100 Container/ButtonRestart"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -196.001
+offset_bottom = -51.0021
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+color = Color(0.0117647, 0.145098, 0.262745, 1)
 
 [node name="Container" type="Container" parent="UI/100/100 Container/ButtonRestart"]
 layout_mode = 1

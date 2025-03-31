@@ -234,6 +234,7 @@ theme_override_constants/separation = 15
 
 [node name="BoxScoreWO" parent="Container/Opening/Score Container/Tempers/BoxScoreContainer" instance=ExtResource("2_jjbh2")]
 layout_mode = 2
+score_type = 0
 
 [node name="BoxScoreFC" parent="Container/Opening/Score Container/Tempers/BoxScoreContainer" instance=ExtResource("2_jjbh2")]
 modulate = Color(0.919115, 0.938408, 0.635672, 1)
@@ -401,23 +402,13 @@ text = "100%"
 vertical_alignment = 1
 
 [node name="ButtonDebug" type="Button" parent="Control"]
+visible = false
 layout_mode = 0
 offset_left = 257.0
 offset_top = -106.0
 offset_right = 472.0
 offset_bottom = -45.0
 text = "Debug Add Score"
-
-[node name="FlyTarget" type="Control" parent="Control"]
-layout_mode = 1
-anchor_left = 0.39
-anchor_top = -0.764146
-anchor_right = 0.59
-anchor_bottom = -0.0623918
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 2
-metadata/_edit_use_anchors_ = true
 
 [node name="FlyContainer" type="ColorRect" parent="Control"]
 modulate = Color(1, 1, 1, 0)
@@ -426,6 +417,21 @@ anchor_left = -11.955
 anchor_top = -48.1579
 anchor_right = 12.935
 anchor_bottom = -1.05263
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="FlyTarget" type="Control" parent="Control/FlyContainer"]
+layout_mode = 1
+anchor_left = 0.39
+anchor_top = -0.764146
+anchor_right = 0.59
+anchor_bottom = -0.0623918
+offset_left = 527.581
+offset_top = 4753.18
+offset_right = 527.581
+offset_bottom = 4753.18
+grow_horizontal = 2
+grow_vertical = 0
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 

@@ -14,6 +14,7 @@ config/name="macrodata-refiner"
 run/main_scene="uid://bh8ggr8lwnvew"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [display]
@@ -23,6 +24,10 @@ window/size/viewport_height=1280
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 mouse_cursor/custom_image="uid://qv0jlysk4vi1"
+
+[editor]
+
+movie_writer/movie_file="E:/EProjects/severance-game/movie.avi"
 
 [input]
 

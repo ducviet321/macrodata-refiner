@@ -7,6 +7,9 @@ class_name Box extends VBoxContainer
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var button: Button = $Container/Button
 @onready var color_rect: ColorRect = $Container/ColorRect
+@onready var fly_container: ColorRect = $Control/FlyContainer
+@onready var fly_target: Control = $Control/FlyContainer/FlyTarget
+@onready var control: Control = $Control
 
 var box_scores: Dictionary[Gameplay.SCORES, BoxScore] = {}
 var tween_progress: Tween

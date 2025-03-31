@@ -408,6 +408,27 @@ offset_right = 472.0
 offset_bottom = -45.0
 text = "Debug Add Score"
 
+[node name="FlyTarget" type="Control" parent="Control"]
+layout_mode = 1
+anchor_left = 0.39
+anchor_top = -0.764146
+anchor_right = 0.59
+anchor_bottom = -0.0623918
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="FlyContainer" type="ColorRect" parent="Control"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+anchor_left = -11.955
+anchor_top = -48.1579
+anchor_right = 12.935
+anchor_bottom = -1.05263
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_jjbh2")

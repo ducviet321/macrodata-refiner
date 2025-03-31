@@ -137,7 +137,7 @@ _data = {
 size = Vector2(43.6748, 46.9563)
 
 [node name="Number" type="Node2D"]
-position = Vector2(946.55, 579.982)
+position = Vector2(529.665, 446.05)
 script = ExtResource("1_4ajyc")
 
 [node name="Node2D" type="Node2D" parent="."]

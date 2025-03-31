@@ -127,7 +127,7 @@ func submit_score(box: Box):
 	if selected_numbers.is_empty():
 		return
 		
-	var final_score:float = (current_dominant_sum - current_other_sum) * current_dominant_count / 10.0
+	var final_score:float = (current_dominant_sum - current_other_sum) * current_dominant_count
 	
 	# Track highest score
 	highest_hit_score = max(highest_hit_score, final_score)
@@ -137,7 +137,7 @@ func submit_score(box: Box):
 	
 	# Animate numbers flying to the box
 	for number in selected_numbers:
-		number.fly_to_target(box.global_position)
+		number.fly_to_target(box)
 	
 	selected_numbers.clear()
 
@@ -488,6 +488,4 @@ func game_over():
 	is_game_started = false
 
 func _on_button_restart_pressed() -> void:
-	animation_player.play_backwards(&"game_over")
-	animation_player.seek(1.0)
 	start()

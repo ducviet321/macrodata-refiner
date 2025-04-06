@@ -3,7 +3,7 @@
 ![Macrodata Refinement Gameplay](gif2.gif)
 ![Macrodata Refinement Gameplay](gif1.gif)
 
-Fan-made game from the series Serverance on AppleTV. The project was made in Godot 4.4 during weekend after I watched the season 2. Below is the "Instructions" in Lumon wording style.
+Fan-made game from the series Severance on AppleTV. The project was made in Godot 4.4 during weekend after I watched the season 2. Below is the "Instructions" in Lumon wording style.
 
 
 
